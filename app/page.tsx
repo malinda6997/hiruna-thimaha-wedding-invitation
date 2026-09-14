@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Preloader from "@/components/Preloader";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import CoupleHero from "@/components/CoupleHero";
+import RosePetals from "@/components/RosePetals";
 
 export default function Home() {
   const [step, setStep] = useState<"loading" | "welcome" | "hero">("loading");
@@ -14,11 +15,11 @@ export default function Home() {
   }, []);
 
   if (!mounted) {
-    return <div className="min-h-screen bg-[#030303]" />;
+    return <div className="min-h-screen bg-[#030206]" />;
   }
 
   return (
-    <main className="min-h-screen bg-[#030303] text-[#e2d1a6] relative overflow-x-hidden">
+    <main className="min-h-screen bg-[#030206] text-white relative overflow-x-hidden">
       {step === "loading" && (
         <Preloader onFinished={() => setStep("welcome")} />
       )}
@@ -28,7 +29,11 @@ export default function Home() {
       )}
 
       {step === "hero" && (
-        <CoupleHero />
+        <>
+          {/* Petals falling seamlessly across the page */}
+          <RosePetals />
+          <CoupleHero />
+        </>
       )}
     </main>
   );
