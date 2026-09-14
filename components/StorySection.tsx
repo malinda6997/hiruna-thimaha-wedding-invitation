@@ -16,7 +16,7 @@ export default function StorySection() {
 
   useGSAP(
     () => {
-      // 1. Header Text Staggered Reveal
+      // Header Text Staggered Reveal
       gsap.fromTo(
         ".story-reveal",
         { opacity: 0, y: 40, filter: "blur(8px)" },
@@ -34,7 +34,7 @@ export default function StorySection() {
         }
       );
 
-      // 2. Cinematic 3D Arch Image Entrance Animation
+      // 3D Arch Image Entrance
       gsap.fromTo(
         imgWrapperRef.current,
         {
@@ -57,7 +57,7 @@ export default function StorySection() {
         }
       );
 
-      // 3. Subtle Parallax Effect on Scroll
+      // Smooth Parallax Image Effect
       gsap.to(".story-arch-img", {
         yPercent: -8,
         ease: "none",
@@ -88,10 +88,29 @@ export default function StorySection() {
         .story-font-lora {
           font-family: 'Lora', serif;
         }
+
+        /* 🔮 Fluid Floating Ambient Mesh Animations */
+        @keyframes floatMesh1 {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50% { transform: translate3d(8vw, 5vh, 0) scale(1.2); }
+        }
+        @keyframes floatMesh2 {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50% { transform: translate3d(-6vw, -6vh, 0) scale(1.15); }
+        }
+        .animate-mesh-1 {
+          animation: floatMesh1 16s ease-in-out infinite;
+          will-change: transform;
+        }
+        .animate-mesh-2 {
+          animation: floatMesh2 20s ease-in-out infinite;
+          will-change: transform;
+        }
       `}</style>
 
-      {/* AMBIENT BACKGROUND GLOW */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[650px] h-[350px] sm:h-[650px] rounded-full bg-purple-900/15 blur-[130px] pointer-events-none" />
+      {/* 🔮 DYNAMIC FLOATING GRADIENT BACKDROP */}
+      <div className="absolute top-1/4 -left-20 w-[350px] sm:w-[650px] h-[350px] sm:h-[650px] rounded-full bg-gradient-to-br from-[#581c87]/30 via-[#3b0764]/20 to-transparent blur-[120px] pointer-events-none animate-mesh-1" />
+      <div className="absolute bottom-1/4 -right-20 w-[380px] sm:w-[700px] h-[380px] sm:h-[700px] rounded-full bg-gradient-to-tl from-[#312e81]/30 via-[#4c1d95]/25 to-transparent blur-[130px] pointer-events-none animate-mesh-2" />
 
       {/* TOP HEADER CONTENT */}
       <div className="relative z-10 text-center max-w-2xl mx-auto mb-10">

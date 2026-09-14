@@ -50,7 +50,6 @@ export default function CountdownSection() {
 
   useGSAP(
     () => {
-      // 1. Header Animation
       gsap.fromTo(
         ".count-reveal",
         { opacity: 0, y: 30 },
@@ -67,7 +66,6 @@ export default function CountdownSection() {
         }
       );
 
-      // 2. 3D Card Flip & Glow Reveal Animation
       gsap.fromTo(
         ".countdown-card",
         {
@@ -111,10 +109,18 @@ export default function CountdownSection() {
         .count-font-lora {
           font-family: 'Lora', serif;
         }
+
+        @keyframes pulseGlow {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        .animate-pulse-glow {
+          animation: pulseGlow 8s ease-in-out infinite;
+        }
       `}</style>
 
-      {/* AMBIENT GLOW */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[600px] h-[320px] sm:h-[600px] rounded-full bg-purple-900/15 blur-[120px] pointer-events-none" />
+      {/* 🔮 CENTER AMBIENT GRADIENT MESH */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[700px] h-[340px] sm:h-[700px] rounded-full bg-gradient-to-r from-[#6b21a8]/25 via-[#4c1d95]/20 to-[#312e81]/25 blur-[130px] pointer-events-none animate-pulse-glow" />
 
       {/* HEADER SECTION */}
       <div className="text-center max-w-xl mx-auto mb-10 relative z-10">
@@ -134,7 +140,7 @@ export default function CountdownSection() {
         </p>
       </div>
 
-      {/* COUNTDOWN TIMER GRID WITH STAGGERED REVEAL */}
+      {/* COUNTDOWN TIMER GRID */}
       <div className="countdown-cards-container relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 w-full max-w-3xl mx-auto px-2">
         {/* DAYS */}
         <div className="countdown-card flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-gradient-to-b from-purple-950/50 to-black/70 border border-purple-500/30 backdrop-blur-xl shadow-xl shadow-purple-950/30 group hover:border-purple-400/60 hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] transition-all duration-500">
