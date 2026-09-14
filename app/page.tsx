@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Preloader from "@/components/Preloader";
 import WelcomeScreen from "@/components/WelcomeScreen";
-import EnvelopeHero from "@/components/EnvelopeHero";
-import AudioPlayer from "@/components/AudioPlayer";
+import CoupleHero from "@/components/CoupleHero";
 
 export default function Home() {
   const [step, setStep] = useState<"loading" | "welcome" | "hero">("loading");
@@ -29,10 +28,7 @@ export default function Home() {
       )}
 
       {step === "hero" && (
-        <>
-          <AudioPlayer />
-          <EnvelopeHero />
-        </>
+        <CoupleHero />
       )}
     </main>
   );
