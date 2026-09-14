@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Preloader from "@/components/Preloader";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import CoupleHero from "@/components/CoupleHero";
+import StorySection from "@/components/StorySection";
+import CountdownSection from "@/components/CountdownSection";
 import RosePetals from "@/components/RosePetals";
 
 export default function Home() {
@@ -30,9 +32,10 @@ export default function Home() {
 
       {step === "hero" && (
         <>
-          {/* Petals falling seamlessly across the page */}
           <RosePetals />
           <CoupleHero />
+          <StorySection />
+          <CountdownSection />
         </>
       )}
     </main>
