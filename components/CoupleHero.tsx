@@ -7,40 +7,18 @@ import { ChevronDown, Heart } from "lucide-react";
 
 export default function CoupleHero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const purpleOrbRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
 
   useGSAP(
     () => {
-      // Background Image Ken Burns Zoom Effect
-      gsap.fromTo(
-        imgRef.current,
-        { scale: 1.06 },
-        { scale: 1, duration: 8, ease: "sine.out", force3D: true }
-      );
-
-      // Background Purple Orb Animation
-      gsap.to(purpleOrbRef.current, {
-        x: "10vw",
-        y: "-3vh",
-        scale: 1.15,
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        force3D: true,
-      });
-
-      // Ultra-slow Smooth Left-to-Right Color Wave (Pure White <-> Royal Purple Only)
+      // Ultra-slow text gradient loop
       gsap.to(".hero-title-main", {
         backgroundPosition: "-200% center",
-        duration: 18, // ඉතාම හෙමින් smooth ලෙස වෙනස් වීමට duration එක 18ක් කළා
+        duration: 18,
         repeat: -1,
         ease: "sine.inOut",
         yoyo: true,
       });
 
-      // Content Entrance Animation Sequence
       const tl = gsap.timeline();
 
       tl.fromTo(
@@ -79,23 +57,19 @@ export default function CoupleHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center p-4 sm:p-6 text-center overflow-hidden select-none bg-[#030206] will-change-transform"
+      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center p-4 sm:p-6 text-center overflow-hidden select-none bg-[#030206]"
     >
-      {/* Dynamic Font Imports & Animation Styles */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
         .hero-font-cinzel {
           font-family: 'Cinzel', serif;
-          font-optical-sizing: auto;
         }
 
         .hero-font-lora {
           font-family: 'Lora', serif;
-          font-optical-sizing: auto;
         }
 
-        /* 🟣 Pure White & Royal Purple Only (No Pink) */
         .animated-text-gradient {
           background-image: linear-gradient(
             120deg,
@@ -116,24 +90,21 @@ export default function CoupleHero() {
       {/* 1. BACKGROUND PHOTO */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          ref={imgRef}
           src="/assets/hero-img.jpg"
           alt="Hiruna and Thimasha Wedding"
-          className="w-full h-full object-cover object-[center_35%] sm:object-center will-change-transform brightness-[0.70]"
+          className="w-full h-full object-cover object-[center_35%] sm:object-center brightness-[0.72]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#030206]" />
+        {/* SEAMLESS GRADIENT BLEND (Fixes the hard edge line at bottom) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 via-70% to-[#030206]" />
       </div>
 
-      {/* 2. PURPLE GRADIENT MESH */}
-      <div
-        ref={purpleOrbRef}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[340px] sm:w-[800px] h-[300px] sm:h-[550px] rounded-full bg-gradient-to-t from-[#581c87]/90 via-[#3b0764]/70 to-transparent blur-[55px] md:blur-[140px] pointer-events-none z-1 will-change-transform"
-      />
+      {/* 2. PURPLE AMBIENT GLOW */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[340px] sm:w-[800px] h-[250px] sm:h-[450px] rounded-full bg-gradient-to-t from-[#581c87]/80 via-[#3b0764]/50 to-transparent blur-[60px] md:blur-[140px] pointer-events-none z-1" />
 
       {/* 3. HERO CONTENT WRAPPER */}
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2 my-auto">
         
-        {/* Badged Title */}
+        {/* BADGE */}
         <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/40 bg-purple-950/70 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
           <span className="hero-font-lora text-xs sm:text-sm text-purple-100 tracking-wider uppercase font-semibold">
@@ -142,24 +113,24 @@ export default function CoupleHero() {
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
         </div>
 
-        {/* 💜 SLOW PURE WHITE & ROYAL PURPLE NAMES */}
-        <h1 className="hero-title-main hero-font-cinzel animated-text-gradient text-5xl sm:text-8xl md:text-9xl font-black tracking-widest drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_20px_rgba(0,0,0,0.9)] my-2">
+        {/* COUPLE NAMES */}
+        <h1 className="hero-title-main hero-font-cinzel animated-text-gradient text-5xl sm:text-8xl md:text-9xl font-black tracking-widest drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] my-2">
           HIRUNA & THIMASHA
         </h1>
 
-        {/* Date & Time */}
+        {/* DATE & TIME */}
         <div className="hero-datetime-text hero-font-lora flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 my-4 text-sm sm:text-xl text-white font-bold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           <span>2026 නොවැම්බර් 15</span>
           <span className="text-purple-300">•</span>
           <span>පෙ.ව. 10:30 – ප.ව. 04:30</span>
         </div>
 
-        {/* Cursive Quote */}
+        {/* QUOTE */}
         <p className="hero-quote hero-font-lora italic text-xl sm:text-3xl text-purple-100 font-medium tracking-wide max-w-2xl my-3 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
           "එකිනෙකට බැඳුණු දෙහදක අලංකාර ආරම්භය..."
         </p>
 
-        {/* Scroll Indicator Button */}
+        {/* SCROLL BUTTON */}
         <div className="hero-scroll-btn mt-8 sm:mt-12">
           <button
             onClick={() => {
