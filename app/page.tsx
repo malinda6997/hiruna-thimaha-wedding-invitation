@@ -3,9 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Preloader from "@/components/Preloader";
 import WelcomeScreen from "@/components/WelcomeScreen";
-import CoupleHero from "@/components/CoupleHero";
-import StorySection from "@/components/StorySection";
-import CountdownSection from "@/components/CountdownSection";
+import WeddingSwipeContainer from "@/components/WeddingSwipeContainer";
 
 export default function Home() {
   const [step, setStep] = useState<"loading" | "welcome" | "hero">("loading");
@@ -29,13 +27,7 @@ export default function Home() {
         <WelcomeScreen onFinished={() => setStep("hero")} />
       )}
 
-      {step === "hero" && (
-        <>
-          <CoupleHero />
-          <StorySection />
-          <CountdownSection />
-        </>
-      )}
+      {step === "hero" && <WeddingSwipeContainer />}
     </main>
   );
 }

@@ -136,11 +136,11 @@ export default function StorySection() {
         </span>
 
         <h2 className="story-reveal story-font-lora italic text-2xl sm:text-4xl text-[#2e233d] font-normal leading-relaxed mb-4 drop-shadow-sm">
-          "එකිනෙකට බැඳුණු දෙහදක, <br className="hidden sm:block" /> අලංකාර සොඳුරු ඇරඹුම..."
+          "Two souls with but a single thought, <br className="hidden sm:block" /> two hearts that beat as one..."
         </h2>
 
         <p className="story-reveal story-font-lora text-sm sm:text-base text-[#554d63] leading-relaxed font-light max-w-xl mx-auto">
-          අපගේ ජීවිතයේ සොඳුරුතම පරිච්ඡේදය පටන් ගන්නා මේ මොහොතේ, අපගේ ආදරණීයයන් වන ඔබ සැමගේ ආශීර්වාදය හා සහභාගීත්වය අපි ඉතා ආදරයෙන් අපේක්ෂා කරමු.
+          As we begin this wonderful chapter of our lives, we warmly invite you to share in our joy and bless us on our special day.
         </p>
       </div>
 
@@ -183,7 +183,7 @@ export default function StorySection() {
         </h3>
 
         <p className="story-reveal story-font-lora italic text-sm sm:text-lg text-[#554d63] leading-relaxed max-w-lg mx-auto">
-          "සිනහව, සෙනෙහස සහ නොමැකෙන මතකයන් රැසක් සමඟින් අප ගෙවා ආ ගමන, අද සිට සදාතනික ආදරයක ඇරඹුමයි."
+          "Our journey of love, laughter, and endless memories leads us to this forever moment."
         </p>
       </div>
     </section>

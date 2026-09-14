@@ -128,7 +128,7 @@ export default function CountdownSection() {
         </h2>
 
         <p className="count-reveal count-font-lora italic text-sm sm:text-lg text-[#554d63] mt-1">
-          2026 නොවැම්බර් 15 • පෙ.ව. 10:30
+          November 15, 2026 • 10:30 AM
         </p>
       </div>
 
@@ -140,7 +140,7 @@ export default function CountdownSection() {
             {formatNumber(timeLeft.days)}
           </span>
           <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            දින (DAYS)
+            DAYS
           </span>
         </div>
 
@@ -150,7 +150,7 @@ export default function CountdownSection() {
             {formatNumber(timeLeft.hours)}
           </span>
           <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            පැය (HOURS)
+            HOURS
           </span>
         </div>
 
@@ -160,7 +160,7 @@ export default function CountdownSection() {
             {formatNumber(timeLeft.minutes)}
           </span>
           <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            මිනිත්තු (MINUTES)
+            MINUTES
           </span>
         </div>
 
@@ -170,7 +170,7 @@ export default function CountdownSection() {
             {formatNumber(timeLeft.seconds)}
           </span>
           <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            තත්පර (SECONDS)
+            SECONDS
           </span>
         </div>
       </div>

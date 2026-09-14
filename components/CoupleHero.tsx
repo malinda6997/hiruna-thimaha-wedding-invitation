@@ -88,7 +88,7 @@ export default function CoupleHero() {
         }
       `}</style>
 
-      {/* 🌸 HERO ONLY ROSE PETALS */}
+      {/* HERO ONLY ROSE PETALS */}
       <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
         <RosePetals />
       </div>
@@ -113,7 +113,7 @@ export default function CoupleHero() {
         <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/40 bg-purple-950/70 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
           <span className="hero-font-lora text-xs sm:text-sm text-purple-100 tracking-wider uppercase font-semibold">
-            මංගල ආරාධනය
+            Wedding Invitation
           </span>
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
         </div>
@@ -125,14 +125,14 @@ export default function CoupleHero() {
 
         {/* DATE & TIME */}
         <div className="hero-datetime-text hero-font-lora flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 my-4 text-sm sm:text-xl text-white font-bold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-          <span>2026 නොවැම්බර් 15</span>
+          <span>November 15, 2026</span>
           <span className="text-purple-300">•</span>
-          <span>පෙ.ව. 10:30 – ප.ව. 04:30</span>
+          <span>10:30 AM – 04:30 PM</span>
         </div>
 
         {/* QUOTE */}
         <p className="hero-quote hero-font-lora italic text-xl sm:text-3xl text-purple-100 font-medium tracking-wide max-w-2xl my-3 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
-          "එකිනෙකට බැඳුණු දෙහදක අලංකාර ආරම්භය..."
+          "The beautiful beginning of two hearts bound together..."
         </p>
 
         {/* SCROLL BUTTON */}
@@ -145,7 +145,7 @@ export default function CoupleHero() {
             className="flex flex-col items-center gap-2 text-purple-100 hover:text-white transition-colors duration-300 group cursor-pointer"
           >
             <span className="hero-font-lora text-xs sm:text-sm tracking-wider uppercase font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-              අපගේ කතාව බලන්න
+              Discover Our Story
             </span>
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-purple-400/50 bg-black/50 flex items-center justify-center group-hover:border-purple-300 group-hover:bg-purple-600/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
               <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-purple-200" />
