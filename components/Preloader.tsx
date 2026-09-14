@@ -60,18 +60,18 @@ export default function Preloader({ onFinished }: PreloaderProps) {
       });
 
       tl.fromTo(
-        ".loader-subtitle",
-        { opacity: 0, letterSpacing: "0.1em", y: 20 },
-        { opacity: 1, letterSpacing: "0.4em", y: 0, duration: 1.2, ease: "power2.out" }
+        ".loader-names",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
       )
         .fromTo(
-          ".loader-names",
+          ".loader-subtitle-1",
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
+          { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
           "-=0.6"
         )
         .fromTo(
-          ".loader-tagline",
+          ".loader-tagline-2",
           { opacity: 0, y: 15 },
           { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
           "-=0.7"
@@ -116,19 +116,19 @@ export default function Preloader({ onFinished }: PreloaderProps) {
       {/* DIRECT LUXURY FLOATING CONTENT */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-xl">
         
-        {/* Top Subtitle */}
-        <p className="loader-subtitle font-cinzel text-xs sm:text-sm text-[#d4af37] uppercase font-semibold tracking-[0.4em] mb-4">
-          An Invitation for You
-        </p>
-
         {/* Couple Names - Luxury Serif Font */}
-        <h1 className="loader-names font-cinzel text-3xl sm:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#fce7f3] to-[#f3e5ab] my-2 drop-shadow-lg">
-          HIRUNA & THIMASHA
+        <h1 className="loader-names font-cinzel text-3xl sm:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#fce7f3] to-[#f3e5ab] mb-3 drop-shadow-lg">
+          Hiruna & Thimasha
         </h1>
 
-        {/* Western Cursive Script (වැල් අකුරු) Tagline */}
-        <p className="loader-tagline font-cursive text-2xl sm:text-4xl text-amber-100/90 mt-2 font-normal tracking-wide">
-          Together with their families
+        {/* Western Cursive Script (වැල් අකුරු) Tagline 1 */}
+        <p className="loader-subtitle-1 font-cursive text-2xl sm:text-4xl text-[#d4af37] my-1 font-normal tracking-wide">
+          Two hearts, one beautiful journey.
+        </p>
+
+        {/* Western Cursive Script Tagline 2 */}
+        <p className="loader-tagline-2 font-cursive text-xl sm:text-3xl text-amber-100/90 mt-1 font-normal tracking-wide">
+          Our forever begins here... 💍
         </p>
 
         {/* Luxury Gold Shimmer Line */}
