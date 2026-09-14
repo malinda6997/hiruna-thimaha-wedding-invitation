@@ -8,14 +8,14 @@ export default function RosePetals() {
   >([]);
 
   useEffect(() => {
-    // Mobile Performance optimize කරමින් පෙති ප්‍රමාණය සකස් කර ඇත
-    const count = typeof window !== "undefined" && window.innerWidth < 768 ? 12 : 20;
+    // Fast & smooth performance for mobile and desktop
+    const count = typeof window !== "undefined" && window.innerWidth < 768 ? 14 : 22;
     const items = Array.from({ length: count }).map((_, i) => ({
       id: i,
-      left: Math.random() * 92,
-      size: 14 + Math.random() * 12,
-      duration: 7 + Math.random() * 7,
-      delay: Math.random() * 5,
+      left: Math.random() * 95,
+      size: 16 + Math.random() * 10,
+      duration: 3.5 + Math.random() * 2.5, // 🚀 Faster falling speed (3.5s - 6s)
+      delay: -(Math.random() * 5), // 🚀 Negative delay makes petals already moving on screen (no top sticking)
     }));
     setPetals(items);
   }, []);
@@ -23,25 +23,23 @@ export default function RosePetals() {
   return (
     <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
       <style jsx global>{`
-        @keyframes floatPetalHero {
+        @keyframes floatPetalFast {
           0% {
-            transform: translate3d(0, -30px, 0) rotate(0deg) rotateY(0deg);
-            opacity: 0;
+            transform: translate3d(0, -20px, 0) rotate(0deg) scale(0.9);
+            opacity: 0.9;
           }
-          15% {
-            opacity: 0.85;
-          }
-          85% {
-            opacity: 0.85;
+          50% {
+            transform: translate3d(35px, 50vh, 0) rotate(180deg) scale(1.05);
+            opacity: 0.95;
           }
           100% {
-            transform: translate3d(60px, 100vh, 0) rotate(360deg) rotateY(360deg);
+            transform: translate3d(-20px, 105vh, 0) rotate(360deg) scale(0.9);
             opacity: 0;
           }
         }
-        .hero-petal-item {
-          animation-name: floatPetalHero;
-          animation-timing-function: linear;
+        .hero-petal-fast {
+          animation-name: floatPetalFast;
+          animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
           animation-iteration-count: infinite;
           will-change: transform, opacity;
         }
@@ -50,7 +48,7 @@ export default function RosePetals() {
       {petals.map((p) => (
         <div
           key={p.id}
-          className="absolute hero-petal-item select-none"
+          className="absolute hero-petal-fast select-none"
           style={{
             left: `${p.left}%`,
             top: 0,
@@ -67,13 +65,13 @@ export default function RosePetals() {
           >
             <path
               d="M12 2C8 2 4 6 4 11C4 16 8 21 12 21C16 21 20 16 20 11C20 6 16 2 12 2Z"
-              fill="url(#heroPetalGrad)"
+              fill="url(#fastPetalGrad)"
             />
             <defs>
-              <linearGradient id="heroPetalGrad" x1="4" y1="2" x2="20" y2="21">
+              <linearGradient id="fastPetalGrad" x1="4" y1="2" x2="20" y2="21">
                 <stop stopColor="#f43f5e" stopOpacity="0.9" />
-                <stop offset="0.5" stopColor="#be123c" stopOpacity="0.8" />
-                <stop offset="1" stopColor="#881337" stopOpacity="0.6" />
+                <stop offset="0.5" stopColor="#be123c" stopOpacity="0.85" />
+                <stop offset="1" stopColor="#881337" stopOpacity="0.7" />
               </linearGradient>
             </defs>
           </svg>
