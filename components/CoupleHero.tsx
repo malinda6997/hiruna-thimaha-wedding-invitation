@@ -14,7 +14,7 @@ export default function CoupleHero() {
     () => {
       gsap.fromTo(
         imgRef.current,
-        { scale: 1.08 },
+        { scale: 1.06 },
         { scale: 1, duration: 8, ease: "sine.out", force3D: true }
       );
 
@@ -67,31 +67,30 @@ export default function CoupleHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-end pb-8 sm:pb-16 p-4 sm:p-6 text-center overflow-hidden select-none bg-[#030206] will-change-transform"
+      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center p-4 sm:p-6 text-center overflow-hidden select-none bg-[#030206] will-change-transform"
     >
-      {/* 1. BACKGROUND PHOTO WITH MOBILE FOCAL ALIGNMENT */}
+      {/* 1. BACKGROUND PHOTO WITH OPTIMIZED POSITION & BRIGHTNESS */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           ref={imgRef}
           src="/assets/hero-img.jpg"
           alt="Hiruna and Thimasha Wedding"
-          className="w-full h-full object-cover object-[center_25%] sm:object-center will-change-transform brightness-[0.65]"
+          className="w-full h-full object-cover object-[center_35%] sm:object-center will-change-transform brightness-[0.75]"
         />
-        {/* Dark Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[#030206]" />
-        <div className="absolute inset-0 bg-black/20 backdrop-brightness-90" />
+        {/* Balanced Vignette Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-[#030206]" />
       </div>
 
       {/* 2. PURPLE GRADIENT MESH */}
       <div
         ref={purpleOrbRef}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[700px] h-[220px] sm:h-[450px] rounded-full bg-gradient-to-t from-[#581c87]/70 via-[#3b0764]/50 to-transparent blur-[50px] md:blur-[140px] pointer-events-none z-1 will-change-transform"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[700px] h-[220px] sm:h-[450px] rounded-full bg-gradient-to-t from-[#581c87]/65 via-[#3b0764]/40 to-transparent blur-[50px] md:blur-[140px] pointer-events-none z-1 will-change-transform"
       />
 
-      {/* 3. HERO CONTENT WRAPPER */}
-      <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2">
-        {/* COMPACT MOBILE BADGE */}
-        <div className="hero-badge flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-purple-400/30 bg-purple-950/60 backdrop-blur-md mb-2 sm:mb-4 shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
+      {/* 3. CENTERED HERO CONTENT WRAPPER */}
+      <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2 my-auto">
+        {/* COMPACT BADGE */}
+        <div className="hero-badge flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-purple-400/30 bg-purple-950/60 backdrop-blur-md mb-3 shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
           <Heart className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-purple-300 fill-purple-300/40" />
           <span className="font-cinzel text-[9px] sm:text-xs text-purple-100 tracking-[0.25em] uppercase font-semibold">
             The Wedding Celebration
@@ -99,13 +98,13 @@ export default function CoupleHero() {
           <Heart className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-purple-300 fill-purple-300/40" />
         </div>
 
-        {/* HIRUNA & THIMASHA NAMES */}
-        <h1 className="hero-title-main font-cinzel text-3xl sm:text-7xl md:text-8xl font-black tracking-widest text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_15px_rgba(0,0,0,0.9)] my-1 sm:my-2">
+        {/* MAIN NAMES */}
+        <h1 className="hero-title-main font-cinzel text-3xl sm:text-7xl md:text-8xl font-black tracking-widest text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_15px_rgba(0,0,0,0.9)] my-2">
           HIRUNA & THIMASHA
         </h1>
 
-        {/* DIRECT FLOATING DATE, TIME & LOCATION */}
-        <div className="hero-datetime-text flex flex-wrap items-center justify-center gap-2 sm:gap-6 my-2 sm:my-4 text-[10px] sm:text-base font-cinzel text-white font-bold tracking-widest uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+        {/* FLOATING DATE, TIME & LOCATION */}
+        <div className="hero-datetime-text flex flex-wrap items-center justify-center gap-2 sm:gap-6 my-3 text-[10px] sm:text-base font-cinzel text-white font-bold tracking-widest uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
           <span>NOVEMBER 15, 2026</span>
           <span className="text-purple-300">•</span>
           <span>10:30 AM – 4:30 PM</span>
@@ -113,13 +112,13 @@ export default function CoupleHero() {
           <span>COLOMBO, SRI LANKA</span>
         </div>
 
-        {/* PODI WADANAK */}
-        <p className="hero-quote font-cursive text-lg sm:text-4xl text-white font-normal tracking-wide max-w-2xl my-1 sm:my-2 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+        {/* QUOTE */}
+        <p className="hero-quote font-cursive text-lg sm:text-4xl text-white font-normal tracking-wide max-w-2xl my-2 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           "Two souls with but a single thought, two hearts that beat as one."
         </p>
 
-        {/* Scroll Indicator Button */}
-        <div className="hero-scroll-btn mt-4 sm:mt-6">
+        {/* SCROLL BUTTON */}
+        <div className="hero-scroll-btn mt-5">
           <button
             onClick={() => {
               const nextSection = document.getElementById("chapter-story");
