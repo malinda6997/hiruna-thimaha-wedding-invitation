@@ -3,68 +3,57 @@
 import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Calendar, Clock, MapPin, ChevronDown, Sparkles, Heart } from "lucide-react";
+import { ChevronDown, Heart } from "lucide-react";
 
 export default function CoupleHero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const orb1Ref = useRef<HTMLDivElement>(null);
-  const orb2Ref = useRef<HTMLDivElement>(null);
+  const purpleOrbRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useGSAP(
     () => {
-      // 1. Slow Zoom-In Animation for Local Image (Ken Burns Effect)
+      // 1. Slow Ken Burns Zoom Effect for Photo
       gsap.fromTo(
         imgRef.current,
-        { scale: 1.15 },
-        { scale: 1, duration: 12, ease: "sine.out" }
+        { scale: 1.12 },
+        { scale: 1, duration: 10, ease: "sine.out" }
       );
 
-      // 2. Dynamic Auto Color-Changing Gradient Overlay Orbs Animation
-      gsap.to(orb1Ref.current, {
-        x: "22vw",
-        y: "18vh",
-        scale: 1.35,
+      // 2. Animated Purple Mesh Glow Movement (At the bottom)
+      gsap.to(purpleOrbRef.current, {
+        x: "15vw",
+        y: "-5vh",
+        scale: 1.25,
         duration: 6,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
       });
 
-      gsap.to(orb2Ref.current, {
-        x: "-22vw",
-        y: "-18vh",
-        scale: 1.4,
-        duration: 7,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      // 3. Staggered Storytelling Text Reveal Animation Sequence
+      // 3. Staggered Entrance Animations
       const tl = gsap.timeline();
 
       tl.fromTo(
         ".hero-badge",
-        { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2 }
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.2 }
       )
         .fromTo(
           ".hero-title-main",
-          { opacity: 0, scale: 0.9, y: 35 },
-          { opacity: 1, scale: 1, y: 0, duration: 1.3, ease: "power3.out" },
+          { opacity: 0, scale: 0.92, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: "power3.out" },
           "-=0.6"
         )
         .fromTo(
-          ".hero-datetime-card",
-          { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+          ".hero-datetime-text",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" },
           "-=0.7"
         )
         .fromTo(
           ".hero-quote",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" },
           "-=0.6"
         )
         .fromTo(
@@ -80,9 +69,9 @@ export default function CoupleHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-center overflow-hidden select-none bg-[#030303]"
+      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-end pb-12 sm:pb-16 p-6 text-center overflow-hidden select-none bg-[#030206]"
     >
-      {/* 1. BACKGROUND PHOTO (Local Image from public/assets/hero-img.jpg) */}
+      {/* 1. BACKGROUND PHOTO */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           ref={imgRef}
@@ -90,80 +79,61 @@ export default function CoupleHero() {
           alt="Hiruna and Thimasha Wedding"
           className="w-full h-full object-cover object-center"
         />
-        {/* Soft Dark Vignette Gradient for Perfect Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/65 to-[#030303]/80" />
+        {/* Top subtle vignette so image top is clean */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-[#030206]" />
       </div>
 
-      {/* 2. DYNAMIC COLOR-CHANGING GRADIENT AURA */}
+      {/* 2. BOTTOM PURPLE GRADIENT MESH */}
       <div
-        ref={orb1Ref}
-        className="absolute top-1/4 left-1/4 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-br from-[#be185d]/35 via-[#831843]/25 to-transparent blur-[140px] pointer-events-none mix-blend-screen z-1"
-      />
-      <div
-        ref={orb2Ref}
-        className="absolute bottom-1/4 right-1/4 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-gradient-to-tr from-[#6b21a8]/40 via-[#d4af37]/25 to-transparent blur-[150px] pointer-events-none mix-blend-screen z-1"
+        ref={purpleOrbRef}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] sm:w-[900px] h-[350px] sm:h-[500px] rounded-full bg-gradient-to-t from-[#581c87]/60 via-[#3b0764]/40 to-transparent blur-[140px] pointer-events-none z-1"
       />
 
       {/* 3. HERO CONTENT WRAPPER */}
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2">
+        
         {/* Top Celebration Sub-Badge */}
-        <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#d4af37]/40 bg-black/40 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-          <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
-          <span className="font-cinzel text-xs sm:text-sm text-[#f3e5ab] tracking-[0.3em] uppercase font-medium">
+        <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/30 bg-purple-950/40 backdrop-blur-md mb-4 shadow-[0_0_25px_rgba(147,51,234,0.25)]">
+          <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/30" />
+          <span className="font-cinzel text-xs sm:text-sm text-purple-100 tracking-[0.35em] uppercase font-semibold">
             The Wedding Celebration
           </span>
-          <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+          <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/30" />
         </div>
 
         {/* LOKUWATA HIRUNA & THIMASHA NAMES */}
-        <h1 className="hero-title-main font-cinzel text-4xl sm:text-7xl md:text-8xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#fce7f3] to-[#f3e5ab] drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)] my-2">
+        <h1 className="hero-title-main font-cinzel text-4xl sm:text-7xl md:text-8xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f3e8ff] to-[#e9d5ff] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] my-2">
           HIRUNA & THIMASHA
         </h1>
 
-        {/* DATE & TIME CARD (Under Names) */}
-        <div className="hero-datetime-card flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 my-6 px-6 sm:px-8 py-3.5 rounded-2xl bg-black/50 border border-white/10 backdrop-blur-xl shadow-2xl">
-          {/* Date */}
-          <div className="flex items-center gap-2 text-xs sm:text-base font-cinzel text-amber-100 font-semibold tracking-wider">
-            <Calendar className="w-4 h-4 text-[#d4af37]" />
-            <span>NOVEMBER 15, 2026</span>
-          </div>
-
-          <div className="hidden sm:block w-[1px] h-4 bg-[#d4af37]/40" />
-
-          {/* Time */}
-          <div className="flex items-center gap-2 text-xs sm:text-base font-cinzel text-amber-100 font-semibold tracking-wider">
-            <Clock className="w-4 h-4 text-[#d4af37]" />
-            <span>10:30 AM – 4:30 PM</span>
-          </div>
-
-          <div className="hidden sm:block w-[1px] h-4 bg-[#d4af37]/40" />
-
-          {/* Location */}
-          <div className="flex items-center gap-2 text-xs sm:text-base font-cinzel text-amber-100 font-semibold tracking-wider">
-            <MapPin className="w-4 h-4 text-[#d4af37]" />
-            <span>COLOMBO, SRI LANKA</span>
-          </div>
+        {/* DIRECT FLOATING DATE, TIME & LOCATION (NO CARD CONTAINER) */}
+        <div className="hero-datetime-text flex flex-wrap items-center justify-center gap-3 sm:gap-6 my-4 text-xs sm:text-base font-cinzel text-white font-medium tracking-widest uppercase drop-shadow-md">
+          <span>NOVEMBER 15, 2026</span>
+          <span className="text-purple-300">•</span>
+          <span>10:30 AM – 4:30 PM</span>
+          <span className="text-purple-300">•</span>
+          <span>COLOMBO, SRI LANKA</span>
         </div>
 
-        {/* PODI WADANAK (Under Date & Time) */}
-        <p className="hero-quote font-cursive text-xl sm:text-3xl text-[#d4af37] font-normal tracking-wide max-w-2xl my-2 leading-relaxed drop-shadow-md">
+        {/* PODI WADANAK */}
+        <p className="hero-quote font-cursive text-2xl sm:text-4xl text-white font-normal tracking-wide max-w-2xl my-2 leading-relaxed drop-shadow-md">
           "Two souls with but a single thought, two hearts that beat as one."
         </p>
 
-        {/* Smooth Scroll Exploration Indicator Button */}
-        <div className="hero-scroll-btn mt-8">
+        {/* Scroll Indicator Button */}
+        <div className="hero-scroll-btn mt-6">
           <button
             onClick={() => {
               const nextSection = document.getElementById("chapter-story");
               nextSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="flex flex-col items-center gap-2 text-[#d4af37] hover:text-white transition-colors duration-300 group cursor-pointer"
+            className="flex flex-col items-center gap-2 text-purple-200 hover:text-white transition-colors duration-300 group cursor-pointer"
           >
-            <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.25em] uppercase">
+            <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">
               Scroll To Discover Our Story
             </span>
-            <div className="w-9 h-9 rounded-full border border-[#d4af37]/40 flex items-center justify-center group-hover:border-[#d4af37] group-hover:bg-[#d4af37]/20 transition-all duration-300">
-              <ChevronDown className="w-4 h-4 animate-bounce text-[#d4af37]" />
+            <div className="w-9 h-9 rounded-full border border-purple-400/30 flex items-center justify-center group-hover:border-purple-300 group-hover:bg-purple-600/20 transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+              <ChevronDown className="w-4 h-4 animate-bounce text-purple-200" />
             </div>
           </button>
         </div>
