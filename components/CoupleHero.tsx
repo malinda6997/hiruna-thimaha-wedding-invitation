@@ -90,60 +90,60 @@ export default function CoupleHero() {
           ref={imgRef}
           src="/assets/hero-img.jpg"
           alt="Hiruna and Thimasha Wedding"
-          className="w-full h-full object-cover object-[center_35%] sm:object-center will-change-transform brightness-[0.75]"
+          className="w-full h-full object-cover object-[center_35%] sm:object-center will-change-transform brightness-[0.70]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-[#030206]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#030206]" />
       </div>
 
-      {/* 2. PURPLE GRADIENT MESH */}
+      {/* 2. THADA PURPLE GRADIENT MESH */}
       <div
         ref={purpleOrbRef}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[700px] h-[220px] sm:h-[450px] rounded-full bg-gradient-to-t from-[#581c87]/65 via-[#3b0764]/40 to-transparent blur-[50px] md:blur-[140px] pointer-events-none z-1 will-change-transform"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[340px] sm:w-[800px] h-[300px] sm:h-[550px] rounded-full bg-gradient-to-t from-[#581c87]/90 via-[#3b0764]/70 to-transparent blur-[55px] md:blur-[140px] pointer-events-none z-1 will-change-transform"
       />
 
       {/* 3. HERO CONTENT */}
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2 my-auto">
         
-        {/* BADGE (Sinhala text with Lora Font) */}
-        <div className="hero-badge flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-purple-400/30 bg-purple-950/60 backdrop-blur-md mb-3 shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
-          <Heart className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-purple-300 fill-purple-300/40" />
-          <span className="hero-font-lora text-[11px] sm:text-xs text-purple-100 tracking-wider uppercase font-semibold">
+        {/* LOKU KERU BADGE */}
+        <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/40 bg-purple-950/70 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+          <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
+          <span className="hero-font-lora text-xs sm:text-sm text-purple-100 tracking-wider uppercase font-semibold">
             මංගල ආරාධනය
           </span>
-          <Heart className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-purple-300 fill-purple-300/40" />
+          <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
         </div>
 
-        {/* COUPLE NAMES (Cinzel Font) */}
-        <h1 className="hero-title-main hero-font-cinzel text-3xl sm:text-7xl md:text-8xl font-black tracking-widest text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_15px_rgba(0,0,0,0.9)] my-2">
+        {/* LOKUM LOKU COUPLE NAMES */}
+        <h1 className="hero-title-main hero-font-cinzel text-5xl sm:text-8xl md:text-9xl font-black tracking-widest text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_20px_rgba(0,0,0,0.9)] my-2">
           HIRUNA & THIMASHA
         </h1>
 
-        {/* DATE & TIME (Sinhala with Lora Font - Location Removed) */}
-        <div className="hero-datetime-text hero-font-lora flex flex-wrap items-center justify-center gap-2 sm:gap-4 my-3 text-xs sm:text-lg text-white font-medium tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+        {/* LOKU DATE & TIME */}
+        <div className="hero-datetime-text hero-font-lora flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 my-4 text-sm sm:text-xl text-white font-bold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           <span>2026 නොවැම්බර් 15</span>
           <span className="text-purple-300">•</span>
           <span>පෙ.ව. 10:30 – ප.ව. 04:30</span>
         </div>
 
-        {/* QUOTE (Sinhala Lora Italic Font) */}
-        <p className="hero-quote hero-font-lora italic text-base sm:text-2xl text-purple-100 font-normal tracking-wide max-w-2xl my-2 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+        {/* LOKU QUOTE */}
+        <p className="hero-quote hero-font-lora italic text-xl sm:text-3xl text-purple-100 font-medium tracking-wide max-w-2xl my-3 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
           "එකිනෙකට බැඳුණු දෙහදක අලංකාර ආරම්භය..."
         </p>
 
-        {/* SCROLL BUTTON */}
-        <div className="hero-scroll-btn mt-5">
+        {/* PAHATHATA KARAPU SCROLL BUTTON */}
+        <div className="hero-scroll-btn mt-8 sm:mt-12">
           <button
             onClick={() => {
               const nextSection = document.getElementById("chapter-story");
               nextSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="flex flex-col items-center gap-1.5 text-purple-100 hover:text-white transition-colors duration-300 group cursor-pointer"
+            className="flex flex-col items-center gap-2 text-purple-100 hover:text-white transition-colors duration-300 group cursor-pointer"
           >
-            <span className="hero-font-lora text-[10px] sm:text-xs tracking-wider uppercase font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <span className="hero-font-lora text-xs sm:text-sm tracking-wider uppercase font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
               අපගේ කතාව බලන්න
             </span>
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-purple-400/40 bg-black/40 flex items-center justify-center group-hover:border-purple-300 group-hover:bg-purple-600/30 transition-all duration-300 shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
-              <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-bounce text-purple-200" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-purple-400/50 bg-black/50 flex items-center justify-center group-hover:border-purple-300 group-hover:bg-purple-600/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+              <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-purple-200" />
             </div>
           </button>
         </div>
