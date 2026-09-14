@@ -15,7 +15,7 @@ export default function Preloader({ onFinished }: PreloaderProps) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Fluid Colorful Mesh Animation
+      // Fluid Purple & Dark Violet Mesh Animation
       gsap.to(orb1Ref.current, {
         x: "25vw",
         y: "15vh",
@@ -90,9 +90,8 @@ export default function Preloader({ onFinished }: PreloaderProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[999] bg-[#050508] flex flex-col items-center justify-center overflow-hidden p-6 select-none"
+      className="fixed inset-0 z-[999] bg-[#030206] flex flex-col items-center justify-center overflow-hidden p-6 select-none"
     >
-      {/* Import Google Fonts specifically for Loading Page */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Onest:wght@100..900&display=swap');
 
@@ -109,48 +108,48 @@ export default function Preloader({ onFinished }: PreloaderProps) {
         }
       `}</style>
 
-      {/* RICH COLORFUL GRADIENT MESH LAYER 1 */}
+      {/* ROYAL PURPLE GRADIENT MESH LAYER 1 */}
       <div
         ref={orb1Ref}
-        className="absolute -top-20 -left-20 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-gradient-to-br from-[#be185d]/30 via-[#831843]/20 to-transparent blur-[130px] pointer-events-none mix-blend-screen"
+        className="absolute -top-20 -left-20 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-gradient-to-br from-[#6b21a8]/35 via-[#4c1d95]/20 to-transparent blur-[130px] pointer-events-none mix-blend-screen"
       />
 
-      {/* RICH COLORFUL GRADIENT MESH LAYER 2 */}
+      {/* ROYAL PURPLE GRADIENT MESH LAYER 2 */}
       <div
         ref={orb2Ref}
-        className="absolute -bottom-20 -right-20 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full bg-gradient-to-tr from-[#6b21a8]/35 via-[#4c1d95]/25 to-transparent blur-[140px] pointer-events-none mix-blend-screen"
+        className="absolute -bottom-20 -right-20 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full bg-gradient-to-tr from-[#581c87]/40 via-[#3b0764]/25 to-transparent blur-[140px] pointer-events-none mix-blend-screen"
       />
 
-      {/* RICH COLORFUL GRADIENT MESH LAYER 3 */}
+      {/* SOFT VIOLET SOFT AURA LAYER 3 */}
       <div
         ref={orb3Ref}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-r from-[#d4af37]/25 via-[#b45309]/20 to-transparent blur-[120px] pointer-events-none mix-blend-screen"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-r from-[#9333ea]/20 via-[#a855f7]/15 to-transparent blur-[120px] pointer-events-none mix-blend-screen"
       />
 
-      {/* Subtle Grid Noise Overlay */}
+      {/* Subtle Noise Grid Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-50" />
 
       {/* DIRECT LUXURY FLOATING CONTENT */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-xl">
         
-        {/* Couple Names - Cinzel Font */}
-        <h1 className="loader-names loader-font-cinzel text-3xl sm:text-5xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#fce7f3] to-[#f3e5ab] mb-4 drop-shadow-lg">
+        {/* Couple Names - Cinzel Pure White Gradient */}
+        <h1 className="loader-names loader-font-cinzel text-3xl sm:text-5xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f3e8ff] to-[#e9d5ff] mb-4 drop-shadow-lg">
           Hiruna & Thimasha
         </h1>
 
-        {/* Tagline 1 - Onest Font */}
-        <p className="loader-subtitle-1 loader-font-onest text-lg sm:text-2xl text-[#d4af37] font-medium tracking-wide my-1">
+        {/* Tagline 1 - Purple Tinted Text */}
+        <p className="loader-subtitle-1 loader-font-onest text-lg sm:text-2xl text-purple-200 font-medium tracking-wide my-1">
           Two hearts, one beautiful journey.
         </p>
 
-        {/* Tagline 2 - Onest Font */}
-        <p className="loader-tagline-2 loader-font-onest text-base sm:text-xl text-amber-100/90 font-light tracking-wide mt-1">
+        {/* Tagline 2 - Soft White Text */}
+        <p className="loader-tagline-2 loader-font-onest text-base sm:text-xl text-purple-100/90 font-light tracking-wide mt-1">
           Our forever begins here... 💍
         </p>
 
-        {/* Luxury Gold Shimmer Line */}
+        {/* Purple/Silver Shimmer Line */}
         <div className="w-56 h-[1.5px] bg-white/10 mt-8 relative overflow-hidden rounded-full">
-          <div className="shimmer-line w-full h-full bg-gradient-to-r from-transparent via-[#d4af37] to-transparent origin-left" />
+          <div className="shimmer-line w-full h-full bg-gradient-to-r from-transparent via-purple-400 to-transparent origin-left" />
         </div>
 
       </div>
