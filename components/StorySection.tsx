@@ -106,6 +106,56 @@ export default function StorySection() {
           animation: floatMesh2 20s ease-in-out infinite;
           will-change: transform;
         }
+
+        /* ✨ Slow & Elegant Continuous Moving White Light Beam Along Border */
+        @keyframes borderBeam {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        .border-beam-container {
+          position: absolute;
+          inset: -2px;
+          border-radius: inherit;
+          overflow: hidden;
+          pointer-events-none;
+          z-index: 5;
+        }
+        .border-beam {
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: conic-gradient(
+            from 0deg at 50% 50%,
+            transparent 0deg,
+            transparent 310deg,
+            rgba(255, 255, 255, 0.4) 335deg,
+            rgba(255, 255, 255, 0.95) 355deg,
+            #ffffff 360deg
+          );
+          animation: borderBeam 8s linear infinite;
+        }
+
+        /* 💡 Image Watema Niwi Niwi Pattuwna Outer Breathing Glow */
+        @keyframes fullBreathGlow {
+          0%, 100% {
+            opacity: 0.3;
+            transform: scale(0.98);
+          }
+          50% {
+            opacity: 0.75;
+            transform: scale(1.02);
+          }
+        }
+        .animate-full-breath-glow {
+          animation: fullBreathGlow 4s ease-in-out infinite;
+          will-change: opacity, transform;
+        }
       `}</style>
 
       {/* DYNAMIC FLOATING GRADIENT BACKDROP */}
@@ -127,22 +177,33 @@ export default function StorySection() {
         </p>
       </div>
 
-      {/* ARCH-FRAMED IMAGE CONTAINER WITH PURE WHITE GRADIENT BORDER */}
-      <div
-        ref={imgWrapperRef}
-        className="relative z-10 w-full max-w-md sm:max-w-lg h-[400px] sm:h-[530px] rounded-t-[180px] sm:rounded-t-[220px] rounded-b-3xl overflow-hidden p-[2px] mb-10 transition-all duration-500 hover:shadow-[0_0_35px_rgba(255,255,255,0.35)]"
-        style={{
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.3), rgba(255,255,255,0.05))",
-          boxShadow: "0 15px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.25)",
-        }}
-      >
-        <div className="w-full h-full rounded-t-[178px] sm:rounded-t-[218px] rounded-b-[22px] overflow-hidden relative bg-[#030206]">
-          <img
-            src="/assets/story-img.jpg"
-            alt="Hiruna and Thimasha Story"
-            className="story-arch-img w-full h-[115%] object-cover object-center -mt-6 will-change-transform"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030206] via-transparent to-transparent opacity-50" />
+      {/* ARCH-FRAMED IMAGE CONTAINER WITH FULL SURROUNDING BREATHING GLOW */}
+      <div className="relative flex flex-col items-center mb-10">
+        
+        {/* 💡 Image Watema Pattuwna Niwi Niwi Yana Outer Aura Glow */}
+        <div className="absolute inset-0 rounded-t-[190px] sm:rounded-t-[230px] rounded-b-3xl bg-gradient-to-r from-purple-400/30 via-white/40 to-purple-500/30 blur-[28px] pointer-events-none animate-full-breath-glow z-0" />
+
+        {/* Main Arch Frame */}
+        <div
+          ref={imgWrapperRef}
+          className="relative z-10 w-full max-w-md sm:max-w-lg h-[400px] sm:h-[530px] rounded-t-[180px] sm:rounded-t-[220px] rounded-b-3xl overflow-hidden p-[2px] shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+          style={{
+            background: "rgba(255, 255, 255, 0.12)",
+          }}
+        >
+          {/* Animated Light Beam Border Wrapper */}
+          <div className="border-beam-container">
+            <div className="border-beam" />
+          </div>
+
+          <div className="w-full h-full rounded-t-[178px] sm:rounded-t-[218px] rounded-b-[22px] overflow-hidden relative bg-[#030206] z-10">
+            <img
+              src="/assets/story-img.jpg"
+              alt="Hiruna and Thimasha Story"
+              className="story-arch-img w-full h-[115%] object-cover object-center -mt-6 will-change-transform"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030206] via-transparent to-transparent opacity-50" />
+          </div>
         </div>
       </div>
 
