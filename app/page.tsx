@@ -6,7 +6,6 @@ import WelcomeScreen from "@/components/WelcomeScreen";
 import CoupleHero from "@/components/CoupleHero";
 import StorySection from "@/components/StorySection";
 import CountdownSection from "@/components/CountdownSection";
-import RosePetals from "@/components/RosePetals";
 
 export default function Home() {
   const [step, setStep] = useState<"loading" | "welcome" | "hero">("loading");
@@ -32,7 +31,6 @@ export default function Home() {
 
       {step === "hero" && (
         <>
-          <RosePetals />
           <CoupleHero />
           <StorySection />
           <CountdownSection />

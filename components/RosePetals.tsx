@@ -8,39 +8,39 @@ export default function RosePetals() {
   >([]);
 
   useEffect(() => {
-    // Mobile එකේදී 10ක් සහ Desktop එකේදී 18ක් ලෙස සීමා කර ඇත
-    const count = window.innerWidth < 768 ? 10 : 18;
+    // Mobile Performance optimize කරමින් පෙති ප්‍රමාණය සකස් කර ඇත
+    const count = typeof window !== "undefined" && window.innerWidth < 768 ? 12 : 20;
     const items = Array.from({ length: count }).map((_, i) => ({
       id: i,
-      left: Math.random() * 95,
+      left: Math.random() * 92,
       size: 14 + Math.random() * 12,
-      duration: 9 + Math.random() * 8,
-      delay: Math.random() * 6,
+      duration: 7 + Math.random() * 7,
+      delay: Math.random() * 5,
     }));
     setPetals(items);
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[80] overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
       <style jsx global>{`
-        @keyframes floatPetal {
+        @keyframes floatPetalHero {
           0% {
-            transform: translate3d(0, -50px, 0) rotate(0deg) rotateY(0deg);
+            transform: translate3d(0, -30px, 0) rotate(0deg) rotateY(0deg);
             opacity: 0;
           }
-          10% {
+          15% {
             opacity: 0.85;
           }
-          90% {
+          85% {
             opacity: 0.85;
           }
           100% {
-            transform: translate3d(80px, 105vh, 0) rotate(360deg) rotateY(360deg);
+            transform: translate3d(60px, 100vh, 0) rotate(360deg) rotateY(360deg);
             opacity: 0;
           }
         }
-        .petal-animated {
-          animation-name: floatPetal;
+        .hero-petal-item {
+          animation-name: floatPetalHero;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
           will-change: transform, opacity;
@@ -50,7 +50,7 @@ export default function RosePetals() {
       {petals.map((p) => (
         <div
           key={p.id}
-          className="absolute petal-animated select-none"
+          className="absolute hero-petal-item select-none"
           style={{
             left: `${p.left}%`,
             top: 0,
@@ -67,10 +67,10 @@ export default function RosePetals() {
           >
             <path
               d="M12 2C8 2 4 6 4 11C4 16 8 21 12 21C16 21 20 16 20 11C20 6 16 2 12 2Z"
-              fill="url(#petalGrad)"
+              fill="url(#heroPetalGrad)"
             />
             <defs>
-              <linearGradient id="petalGrad" x1="4" y1="2" x2="20" y2="21">
+              <linearGradient id="heroPetalGrad" x1="4" y1="2" x2="20" y2="21">
                 <stop stopColor="#f43f5e" stopOpacity="0.9" />
                 <stop offset="0.5" stopColor="#be123c" stopOpacity="0.8" />
                 <stop offset="1" stopColor="#881337" stopOpacity="0.6" />

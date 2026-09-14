@@ -4,13 +4,14 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ChevronDown, Heart } from "lucide-react";
+import RosePetals from "@/components/RosePetals";
 
 export default function CoupleHero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      // Ultra-slow text gradient loop
+      // Slow color shifting text gradient
       gsap.to(".hero-title-main", {
         backgroundPosition: "-200% center",
         duration: 18,
@@ -87,6 +88,11 @@ export default function CoupleHero() {
         }
       `}</style>
 
+      {/* 🌸 HERO ONLY ROSE PETALS */}
+      <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+        <RosePetals />
+      </div>
+
       {/* 1. BACKGROUND PHOTO */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
@@ -94,16 +100,15 @@ export default function CoupleHero() {
           alt="Hiruna and Thimasha Wedding"
           className="w-full h-full object-cover object-[center_35%] sm:object-center brightness-[0.72]"
         />
-        {/* SEAMLESS GRADIENT BLEND (Fixes the hard edge line at bottom) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 via-70% to-[#030206]" />
+        {/* Seamless Bottom Fade Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 via-65% to-[#030206]" />
       </div>
 
-      {/* 2. PURPLE AMBIENT GLOW */}
+      {/* 2. PURPLE AMBIENT MESH */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[340px] sm:w-[800px] h-[250px] sm:h-[450px] rounded-full bg-gradient-to-t from-[#581c87]/80 via-[#3b0764]/50 to-transparent blur-[60px] md:blur-[140px] pointer-events-none z-1" />
 
       {/* 3. HERO CONTENT WRAPPER */}
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2 my-auto">
-        
         {/* BADGE */}
         <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/40 bg-purple-950/70 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
