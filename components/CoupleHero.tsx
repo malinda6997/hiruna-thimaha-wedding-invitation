@@ -29,6 +29,15 @@ export default function CoupleHero() {
         force3D: true,
       });
 
+      // Smooth Left-to-Right Rose Petal Color Wave Animation for Names
+      gsap.to(".hero-title-main", {
+        backgroundPosition: "-200% center",
+        duration: 6,
+        repeat: -1,
+        ease: "sine.inOut",
+        yoyo: true,
+      });
+
       const tl = gsap.timeline();
 
       tl.fromTo(
@@ -82,6 +91,22 @@ export default function CoupleHero() {
           font-family: 'Lora', serif;
           font-optical-sizing: auto;
         }
+
+        /* Pure White & Rose Petal Color Wave Gradient */
+        .animated-text-gradient {
+          background-image: linear-gradient(
+            120deg,
+            #ffffff 0%,
+            #f43f5e 30%,
+            #fb7185 50%,
+            #e11d48 70%,
+            #ffffff 100%
+          );
+          background-size: 300% 100%;
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+        }
       `}</style>
 
       {/* 1. BACKGROUND PHOTO */}
@@ -95,7 +120,7 @@ export default function CoupleHero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#030206]" />
       </div>
 
-      {/* 2. THADA PURPLE GRADIENT MESH */}
+      {/* 2. PURPLE GRADIENT MESH */}
       <div
         ref={purpleOrbRef}
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[340px] sm:w-[800px] h-[300px] sm:h-[550px] rounded-full bg-gradient-to-t from-[#581c87]/90 via-[#3b0764]/70 to-transparent blur-[55px] md:blur-[140px] pointer-events-none z-1 will-change-transform"
@@ -104,7 +129,7 @@ export default function CoupleHero() {
       {/* 3. HERO CONTENT */}
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2 my-auto">
         
-        {/* LOKU KERU BADGE */}
+        {/* BADGE */}
         <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/40 bg-purple-950/70 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
           <span className="hero-font-lora text-xs sm:text-sm text-purple-100 tracking-wider uppercase font-semibold">
@@ -113,24 +138,24 @@ export default function CoupleHero() {
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
         </div>
 
-        {/* LOKUM LOKU COUPLE NAMES */}
-        <h1 className="hero-title-main hero-font-cinzel text-5xl sm:text-8xl md:text-9xl font-black tracking-widest text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_20px_rgba(0,0,0,0.9)] my-2">
+        {/* ROSE PETAL MATCHED COLOR-SHIFTING COUPLE NAMES */}
+        <h1 className="hero-title-main hero-font-cinzel animated-text-gradient text-5xl sm:text-8xl md:text-9xl font-black tracking-widest drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_20px_rgba(0,0,0,0.9)] my-2">
           HIRUNA & THIMASHA
         </h1>
 
-        {/* LOKU DATE & TIME */}
+        {/* DATE & TIME */}
         <div className="hero-datetime-text hero-font-lora flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 my-4 text-sm sm:text-xl text-white font-bold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           <span>2026 නොවැම්බර් 15</span>
           <span className="text-purple-300">•</span>
           <span>පෙ.ව. 10:30 – ප.ව. 04:30</span>
         </div>
 
-        {/* LOKU QUOTE */}
+        {/* QUOTE */}
         <p className="hero-quote hero-font-lora italic text-xl sm:text-3xl text-purple-100 font-medium tracking-wide max-w-2xl my-3 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
           "එකිනෙකට බැඳුණු දෙහදක අලංකාර ආරම්භය..."
         </p>
 
-        {/* PAHATHATA KARAPU SCROLL BUTTON */}
+        {/* SCROLL BUTTON */}
         <div className="hero-scroll-btn mt-8 sm:mt-12">
           <button
             onClick={() => {
