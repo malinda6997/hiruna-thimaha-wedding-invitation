@@ -92,6 +92,23 @@ export default function Preloader({ onFinished }: PreloaderProps) {
       ref={containerRef}
       className="fixed inset-0 z-[999] bg-[#050508] flex flex-col items-center justify-center overflow-hidden p-6 select-none"
     >
+      {/* Import Google Fonts specifically for Loading Page */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Onest:wght@100..900&display=swap');
+
+        .loader-font-cinzel {
+          font-family: 'Cinzel', serif;
+          font-optical-sizing: auto;
+          font-style: normal;
+        }
+
+        .loader-font-onest {
+          font-family: 'Onest', sans-serif;
+          font-optical-sizing: auto;
+          font-style: normal;
+        }
+      `}</style>
+
       {/* RICH COLORFUL GRADIENT MESH LAYER 1 */}
       <div
         ref={orb1Ref}
@@ -110,24 +127,24 @@ export default function Preloader({ onFinished }: PreloaderProps) {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-r from-[#d4af37]/25 via-[#b45309]/20 to-transparent blur-[120px] pointer-events-none mix-blend-screen"
       />
 
-      {/* Subtle Noise Grid Overlay */}
+      {/* Subtle Grid Noise Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-50" />
 
       {/* DIRECT LUXURY FLOATING CONTENT */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-xl">
         
-        {/* Couple Names - Luxury Serif Font */}
-        <h1 className="loader-names font-cinzel text-3xl sm:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#fce7f3] to-[#f3e5ab] mb-3 drop-shadow-lg">
+        {/* Couple Names - Cinzel Font */}
+        <h1 className="loader-names loader-font-cinzel text-3xl sm:text-5xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#fce7f3] to-[#f3e5ab] mb-4 drop-shadow-lg">
           Hiruna & Thimasha
         </h1>
 
-        {/* Western Cursive Script (වැල් අකුරු) Tagline 1 */}
-        <p className="loader-subtitle-1 font-cursive text-2xl sm:text-4xl text-[#d4af37] my-1 font-normal tracking-wide">
+        {/* Tagline 1 - Onest Font */}
+        <p className="loader-subtitle-1 loader-font-onest text-lg sm:text-2xl text-[#d4af37] font-medium tracking-wide my-1">
           Two hearts, one beautiful journey.
         </p>
 
-        {/* Western Cursive Script Tagline 2 */}
-        <p className="loader-tagline-2 font-cursive text-xl sm:text-3xl text-amber-100/90 mt-1 font-normal tracking-wide">
+        {/* Tagline 2 - Onest Font */}
+        <p className="loader-tagline-2 loader-font-onest text-base sm:text-xl text-amber-100/90 font-light tracking-wide mt-1">
           Our forever begins here... 💍
         </p>
 
