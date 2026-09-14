@@ -16,7 +16,7 @@ export default function StorySection() {
 
   useGSAP(
     () => {
-      // Header Text Staggered Reveal
+      // 1. Header Text Staggered Reveal
       gsap.fromTo(
         ".story-reveal",
         { opacity: 0, y: 40, filter: "blur(8px)" },
@@ -34,7 +34,7 @@ export default function StorySection() {
         }
       );
 
-      // 3D Arch Image Entrance
+      // 2. Cinematic 3D Arch Image Entrance
       gsap.fromTo(
         imgWrapperRef.current,
         {
@@ -57,7 +57,7 @@ export default function StorySection() {
         }
       );
 
-      // Smooth Parallax Image Effect
+      // 3. Smooth Parallax Image Effect
       gsap.to(".story-arch-img", {
         yPercent: -8,
         ease: "none",
@@ -89,7 +89,7 @@ export default function StorySection() {
           font-family: 'Lora', serif;
         }
 
-        /* 🔮 Fluid Floating Ambient Mesh Animations */
+        /* Fluid Floating Ambient Mesh Animations */
         @keyframes floatMesh1 {
           0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
           50% { transform: translate3d(8vw, 5vh, 0) scale(1.2); }
@@ -108,7 +108,7 @@ export default function StorySection() {
         }
       `}</style>
 
-      {/* 🔮 DYNAMIC FLOATING GRADIENT BACKDROP */}
+      {/* DYNAMIC FLOATING GRADIENT BACKDROP */}
       <div className="absolute top-1/4 -left-20 w-[350px] sm:w-[650px] h-[350px] sm:h-[650px] rounded-full bg-gradient-to-br from-[#581c87]/30 via-[#3b0764]/20 to-transparent blur-[120px] pointer-events-none animate-mesh-1" />
       <div className="absolute bottom-1/4 -right-20 w-[380px] sm:w-[700px] h-[380px] sm:h-[700px] rounded-full bg-gradient-to-tl from-[#312e81]/30 via-[#4c1d95]/25 to-transparent blur-[130px] pointer-events-none animate-mesh-2" />
 
@@ -127,18 +127,22 @@ export default function StorySection() {
         </p>
       </div>
 
-      {/* ARCH-FRAMED IMAGE CONTAINER WITH 3D GSAP ANIMATION */}
+      {/* ARCH-FRAMED IMAGE CONTAINER WITH PURE WHITE GRADIENT BORDER */}
       <div
         ref={imgWrapperRef}
-        className="relative z-10 w-full max-w-md sm:max-w-lg h-[400px] sm:h-[530px] rounded-t-[180px] sm:rounded-t-[220px] rounded-b-3xl overflow-hidden border border-purple-500/30 shadow-[0_15px_50px_rgba(88,28,135,0.35)] bg-purple-950/20 backdrop-blur-md p-2 mb-10 transition-shadow duration-500 hover:shadow-[0_20px_60px_rgba(168,85,247,0.4)]"
+        className="relative z-10 w-full max-w-md sm:max-w-lg h-[400px] sm:h-[530px] rounded-t-[180px] sm:rounded-t-[220px] rounded-b-3xl overflow-hidden p-[2px] mb-10 transition-all duration-500 hover:shadow-[0_0_35px_rgba(255,255,255,0.35)]"
+        style={{
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.3), rgba(255,255,255,0.05))",
+          boxShadow: "0 15px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.25)",
+        }}
       >
-        <div className="w-full h-full rounded-t-[172px] sm:rounded-t-[212px] rounded-b-2xl overflow-hidden relative">
+        <div className="w-full h-full rounded-t-[178px] sm:rounded-t-[218px] rounded-b-[22px] overflow-hidden relative bg-[#030206]">
           <img
             src="/assets/story-img.jpg"
             alt="Hiruna and Thimasha Story"
             className="story-arch-img w-full h-[115%] object-cover object-center -mt-6 will-change-transform"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030206] via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030206] via-transparent to-transparent opacity-50" />
         </div>
       </div>
 
