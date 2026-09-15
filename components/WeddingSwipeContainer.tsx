@@ -10,6 +10,7 @@ import WeInviteSection from "@/components/WeInviteSection";
 import WeddingTimeline from "@/components/WeddingTimeline";
 import LocationSection from "@/components/LocationSection";
 import CountdownSection from "@/components/CountdownSection";
+import EngagementGallery from "@/components/EngagementGallery";
 import Footer from "@/components/Footer";
 
 if (typeof window !== "undefined") {
@@ -45,7 +46,7 @@ export default function WeddingSwipeContainer() {
     <div ref={containerRef} className="overflow-hidden w-full relative bg-[#030206]">
       <div
         ref={sliderRef}
-        className="flex flex-col lg:flex-row lg:w-[700vw] lg:h-screen w-full"
+        className="flex flex-col lg:flex-row lg:w-[800vw] lg:h-screen w-full"
       >
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <CoupleHero />
@@ -64,6 +65,9 @@ export default function WeddingSwipeContainer() {
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <CountdownSection />
+        </div>
+        <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
+          <EngagementGallery />
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <Footer />
