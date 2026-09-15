@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, {useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -12,6 +12,19 @@ if (typeof window !== "undefined") {
 
 export default function StorySection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isTypingStarted, setIsTypingStarted] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Paragraphs 5k (maruwen maruwata type wena)
+  const paragraphs = [
+    "“Our journey of love, laughter, and endless memories leads us to this forever moment.”",
+    "“From the very first glance, our hearts knew they belonged to one another for eternity.”",
+    "“Side by side, hand in hand, we are ready to write our most beautiful chapter yet.”",
+    "“Every single moment spent together feels like a dream come true wrapped in pure joy.”",
+    "“Today, surrounded by our loved ones, we promise to cherish and love each other forever.”"
+  ];
 
   useGSAP(
     () => {
@@ -28,6 +41,7 @@ export default function StorySection() {
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 75%",
+            onEnter: () => setIsTypingStarted(true),
           },
         }
       );
@@ -35,8 +49,43 @@ export default function StorySection() {
     { scope: containerRef }
   );
 
+  // Multi-paragraph typing & rotating effect runner
+  useEffect(() => {
+    if (!isTypingStarted) return;
+
+    const currentFullText = paragraphs[currentTextIndex];
+    let timer: NodeJS.Timeout;
+
+    if (!isDeleting) {
+      // Typing forward
+      if (displayedText.length < currentFullText.length) {
+        timer = setTimeout(() => {
+          setDisplayedText(currentFullText.substring(0, displayedText.length + 1));
+        }, 40); // typing speed
+      } else {
+        // Finished typing current paragraph, wait 2 seconds before clearing & going to next
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000);
+      }
+    } else {
+      // Deleting / backspacing quickly to transition smoothly to next paragraph
+      if (displayedText.length > 0) {
+        timer = setTimeout(() => {
+          setDisplayedText(currentFullText.substring(0, displayedText.length - 1));
+        }, 20);
+      } else {
+        setIsDeleting(false);
+        setCurrentTextIndex((prev) => (prev + 1) % paragraphs.length);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, currentTextIndex, isTypingStarted, paragraphs]);
+
   return (
     <section
+      id="chapter-story"
       ref={containerRef}
       className="relative min-h-screen w-full bg-[#fbfbfa] text-[#1a1820] py-20 px-6 flex flex-col items-center justify-center overflow-hidden select-none"
     >
@@ -49,13 +98,45 @@ export default function StorySection() {
         .story-font-lora {
           font-family: 'Lora', serif;
         }
+
+        @keyframes colorShiftShadow {
+          0% {
+            box-shadow: 0 20px 40px -10px rgba(126, 34, 206, 0.4);
+          }
+          33% {
+            box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.6);
+          }
+          66% {
+            box-shadow: 0 20px 40px -10px rgba(91, 33, 182, 0.5);
+          }
+          100% {
+            box-shadow: 0 20px 40px -10px rgba(126, 34, 206, 0.4);
+          }
+        }
+
+        .animated-purple-shadow {
+          animation: colorShiftShadow 6s ease-in-out infinite;
+        }
+
+        .cursor-blink::after {
+          content: "|";
+          animation: blink 1s infinite;
+          color: #7e22ce;
+          font-weight: bold;
+          margin-left: 2px;
+        }
+
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
       `}</style>
 
       {/* CENTERED VERTICAL CONTAINER */}
       <div className="w-full max-w-md mx-auto flex flex-col items-center text-center">
         
-        {/* ARCH / DOME SHAPE IMAGE CONTAINER */}
-        <div className="story-reveal relative w-[280px] sm:w-[340px] h-[360px] sm:h-[420px] rounded-t-[180px] rounded-b-3xl overflow-hidden shadow-2xl border-4 border-purple-100 bg-purple-50 mb-8 p-1">
+        {/* ARCH / DOME SHAPE IMAGE CONTAINER WITH COLOR-SHIFTING SHADOW */}
+        <div className="story-reveal relative w-[280px] sm:w-[340px] h-[360px] sm:h-[420px] rounded-t-[180px] rounded-b-3xl overflow-hidden border-4 border-purple-100 bg-purple-50 mb-8 p-1 animated-purple-shadow">
           <div className="w-full h-full rounded-t-[170px] rounded-b-2xl overflow-hidden relative">
             <img
               src="/assets/p5.jpg"
@@ -79,9 +160,9 @@ export default function StorySection() {
           Hiruna & Thimasha
         </h2>
 
-        {/* QUOTE */}
-        <p className="story-reveal story-font-lora italic text-sm sm:text-base text-[#554d63] leading-relaxed font-light max-w-sm">
-          &ldquo;Our journey of love, laughter, and endless memories leads us to this forever moment.&rdquo;
+        {/* MULTI-PARAGRAPH TYPING ANIMATION QUOTE */}
+        <p className="story-reveal story-font-lora italic text-sm sm:text-base text-[#554d63] leading-relaxed font-light max-w-sm min-h-[5rem]">
+          <span className="cursor-blink">{displayedText}</span>
         </p>
 
       </div>
