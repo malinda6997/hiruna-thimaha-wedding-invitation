@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import CoupleHero from "@/components/CoupleHero";
 import StorySection from "@/components/StorySection";
+import WeInviteSection from "@/components/WeInviteSection";
 import WeddingTimeline from "@/components/WeddingTimeline";
 import CountdownSection from "@/components/CountdownSection";
 
@@ -21,7 +22,6 @@ export default function WeddingSwipeContainer() {
     () => {
       const sections = gsap.utils.toArray<HTMLElement>(".swipe-panel");
 
-      // On desktop/tablet, pin the container and scrub horizontally with modern card stacking
       if (window.innerWidth >= 1024) {
         gsap.to(sections, {
           xPercent: -100 * (sections.length - 1),
@@ -41,16 +41,18 @@ export default function WeddingSwipeContainer() {
 
   return (
     <div ref={containerRef} className="overflow-hidden w-full relative bg-[#030206]">
-      {/* Horizontal Swipe Slider for Desktop / Vertical stack for Mobile */}
       <div
         ref={sliderRef}
-        className="flex flex-col lg:flex-row lg:w-[400vw] lg:h-screen w-full"
+        className="flex flex-col lg:flex-row lg:w-[500vw] lg:h-screen w-full"
       >
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <CoupleHero />
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <StorySection />
+        </div>
+        <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
+          <WeInviteSection />
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <WeddingTimeline />
