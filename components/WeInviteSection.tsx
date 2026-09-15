@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useRef, useEffect } from "react";
+import React, {useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -15,6 +15,10 @@ export default function WeInviteSection() {
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const petalsContainerRef = useRef<HTMLDivElement>(null);
+
+  const [displayedText, setDisplayedText] = useState("");
+  const fullText = "Together with our families, we joyfully invite you to celebrate our wedding day. Your presence, love, and blessings mean the world to us as we begin this new chapter together.";
+  const [isTypingStarted, setIsTypingStarted] = useState(false);
 
   // Rose petals falling generator for the image box
   useEffect(() => {
@@ -88,12 +92,30 @@ export default function WeInviteSection() {
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 70%",
+            onEnter: () => setIsTypingStarted(true),
           },
         }
       );
     },
     { scope: containerRef }
   );
+
+  // Single-run typing effect runner
+  useEffect(() => {
+    if (!isTypingStarted) return;
+    let i = 0;
+    setDisplayedText("");
+    const timer = setInterval(() => {
+      if (i < fullText.length) {
+        setDisplayedText((prev) => prev + fullText.charAt(i));
+        i++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 30); // typing speed
+
+    return () => clearInterval(timer);
+  }, [isTypingStarted]);
 
   return (
     <section
@@ -121,6 +143,61 @@ export default function WeInviteSection() {
 
         .animate-continuous-bounce {
           animation: continuous-bounce 2s ease-in-out infinite;
+        }
+
+        .cursor-blink-invite::after {
+          content: "|";
+          animation: blink 1s infinite;
+          color: #7e22ce;
+          font-weight: bold;
+          margin-left: 2px;
+        }
+
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+
+        /* Rotating border beam animation */
+        @keyframes rotateBorder {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        .animated-border-card {
+          position: relative;
+          border-radius: 1.5rem;
+          background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 100%);
+          overflow: hidden;
+        }
+
+        .animated-border-card::before {
+          content: '';
+          position: absolute;
+          inset: -50%;
+          background: conic-gradient(
+            from 0deg at 50% 50%,
+            transparent 0deg,
+            transparent 60deg,
+            #7e22ce 150deg,
+            #c084fc 200deg,
+            transparent 260deg,
+            transparent 360deg
+          );
+          animation: rotateBorder 5s linear infinite;
+          z-index: 0;
+        }
+
+        .animated-border-card-inner {
+          position: relative;
+          background: linear-gradient(to bottom right, #ffffff, #faf5ff);
+          border-radius: calc(1.5rem - 2px);
+          z-index: 1;
+          margin: 2px;
         }
       `}</style>
 
@@ -158,54 +235,62 @@ export default function WeInviteSection() {
             We Invite <span className="text-[#7e22ce] italic font-serif">You</span>
           </h2>
 
-          <p className="invite-reveal invite-font-lora text-xs sm:text-sm text-[#554d63] leading-relaxed font-light mb-6 max-w-xl">
-            Together with our families, we joyfully invite you to celebrate our wedding day. Your presence, love, and blessings mean the world to us as we begin this new chapter together.
+          {/* SINGLE-RUN TYPING ANIMATION PARAGRAPH */}
+          <p className="invite-reveal invite-font-lora text-xs sm:text-sm text-[#554d63] leading-relaxed font-light mb-6 max-w-xl min-h-[4rem]">
+            <span className={displayedText.length < fullText.length ? "cursor-blink-invite" : ""}>{displayedText}</span>
           </p>
 
-          <div className="invite-reveal flex flex-col gap-3 bg-white p-5 rounded-2xl border border-purple-100 shadow-lg shadow-purple-950/5 max-w-xl mb-6">
-            
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-full bg-purple-50 flex items-center justify-center flex-shrink-0 border border-purple-200">
-                <Calendar className="w-4 h-4 text-[#7e22ce]" />
+          {/* PREMIUM EVENT DETAILS CARD WITH ROTATING PURPLE BORDER ANIMATION */}
+          <div className="invite-reveal animated-border-card shadow-xl shadow-purple-950/15 max-w-xl mb-6">
+            <div className="animated-border-card-inner p-6 flex flex-col gap-4">
+              
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-[#7e22ce] flex items-center justify-center flex-shrink-0 text-white shadow-md shadow-purple-900/20">
+                  <Calendar className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">
+                    Date
+                  </h4>
+                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820]">
+                    Sunday, November 15, 2026
+                  </p>
+                </div>
               </div>
-              <div className="text-left">
-                <h4 className="invite-font-cinzel text-xs font-bold text-[#1a1820] uppercase tracking-wider">
-                  Date
-                </h4>
-                <p className="invite-font-lora text-xs sm:text-sm text-[#554d63]">
-                  Sunday, November 15, 2026
-                </p>
-              </div>
-            </div>
 
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-full bg-purple-50 flex items-center justify-center flex-shrink-0 border border-purple-200">
-                <Clock className="w-4 h-4 text-[#7e22ce]" />
-              </div>
-              <div className="text-left">
-                <h4 className="invite-font-cinzel text-xs font-bold text-[#1a1820] uppercase tracking-wider">
-                  Time
-                </h4>
-                <p className="invite-font-lora text-xs sm:text-sm text-[#554d63]">
-                  Auspicious Time: 10:30 AM onwards
-                </p>
-              </div>
-            </div>
+              <div className="w-full h-[1px] bg-purple-100" />
 
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-full bg-purple-50 flex items-center justify-center flex-shrink-0 border border-purple-200">
-                <MapPin className="w-4 h-4 text-[#7e22ce]" />
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-[#7e22ce] flex items-center justify-center flex-shrink-0 text-white shadow-md shadow-purple-900/20">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">
+                    Time
+                  </h4>
+                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820]">
+                    Auspicious Time: 10:30 AM onwards
+                  </p>
+                </div>
               </div>
-              <div className="text-left">
-                <h4 className="invite-font-cinzel text-xs font-bold text-[#1a1820] uppercase tracking-wider">
-                  Location / Venue
-                </h4>
-                <p className="invite-font-lora text-xs sm:text-sm text-[#554d63]">
-                  Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya
-                </p>
-              </div>
-            </div>
 
+              <div className="w-full h-[1px] bg-purple-100" />
+
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-[#7e22ce] flex items-center justify-center flex-shrink-0 text-white shadow-md shadow-purple-900/20">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">
+                    Location / Venue
+                  </h4>
+                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820] leading-snug">
+                    Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
 
           {/* LARGER DOWNLOAD INVITATION BUTTON WITH CONTINUOUS BOUNCE ANIMATION */}
@@ -217,7 +302,7 @@ export default function WeInviteSection() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 rounded-full bg-[#7e22ce] text-white hover:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/30 animate-continuous-bounce font-sans text-sm sm:text-base font-bold tracking-widest uppercase"
             >
-              Download Invitation
+              Click me
             </a>
           </div>
 
