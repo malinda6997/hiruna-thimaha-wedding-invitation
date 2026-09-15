@@ -208,14 +208,14 @@ export default function WeInviteSection() {
 
           </div>
 
-          {/* DOWNLOAD INVITATION BUTTON WITH CONTINUOUS BOUNCE ANIMATION & NO ICON */}
+          {/* LARGER DOWNLOAD INVITATION BUTTON WITH CONTINUOUS BOUNCE ANIMATION */}
           <div className="invite-reveal flex justify-center lg:justify-start">
             <a
               href="/assets/invite-couple.png"
               download="Hiruna_Thimasha_Wedding_Invitation.png"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#7e22ce] text-white hover:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/25 animate-continuous-bounce font-sans text-xs sm:text-sm font-semibold tracking-widest uppercase"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 rounded-full bg-[#7e22ce] text-white hover:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/30 animate-continuous-bounce font-sans text-sm sm:text-base font-bold tracking-widest uppercase"
             >
               Download Invitation
             </a>
