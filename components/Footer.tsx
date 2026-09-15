@@ -25,10 +25,7 @@ export default function Footer() {
           duration: 1,
           stagger: 0.15,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-          },
+          scrollTrigger: { trigger: containerRef.current, start: "top 75%" },
         }
       );
     },
@@ -38,41 +35,33 @@ export default function Footer() {
   return (
     <footer
       ref={containerRef}
-      className="relative min-h-screen w-full bg-[#fbfbfa] text-[#1a1820] flex flex-col items-center justify-between py-16 px-6 select-none overflow-hidden"
+      className="relative min-h-[70vh] w-full bg-[#fbfbfa] text-[#1a1820] flex flex-col items-center justify-between py-14 px-6 select-none overflow-hidden"
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
-
-        .footer-font-cinzel {
-          font-family: 'Cinzel', serif;
-        }
-        .footer-font-lora {
-          font-family: 'Lora', serif;
-        }
+        .footer-font-cinzel { font-family: 'Cinzel', serif; }
+        .footer-font-lora { font-family: 'Lora', serif; }
       `}</style>
 
-      {/* TOP EMPTY SPACE BALANCER */}
       <div />
 
-      {/* CENTER CONTENT */}
       <div className="footer-reveal my-auto text-center flex flex-col items-center max-w-md">
         <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center border border-purple-200 text-[#7e22ce] mb-5 shadow-sm">
           <Heart className="w-6 h-6 fill-[#7e22ce]/30 animate-pulse" />
         </div>
-        
+
         <h3 className="footer-font-cinzel text-3xl sm:text-4xl font-extrabold tracking-wider text-[#1a1820] mb-3 uppercase">
           Hiruna & Thimasha
         </h3>
-        
+
         <p className="footer-font-lora text-sm sm:text-base text-[#554d63] italic font-light">
           &ldquo;With love, forever and always.&rdquo;
         </p>
       </div>
 
-      {/* BOTTOM COPYRIGHT & DEVELOPER CREDITS */}
       <div className="footer-reveal text-center text-xs text-[#554d63]/80 tracking-wider footer-font-lora">
         <p>
-          © 2026 Wedding Invitation. Developed with precision by{" "}
+          © 2026 Hiruna & Thimasha Wedding. Developed with precision by{" "}
           <span className="text-[#7e22ce] font-semibold tracking-normal">Malinda Prabath</span>.
         </p>
       </div>

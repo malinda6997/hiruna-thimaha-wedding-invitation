@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -14,12 +14,8 @@ export default function CountdownSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const targetDate = new Date("2026-11-15T10:30:00").getTime();
 
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isUrgent, setIsUrgent] = useState(false);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -28,40 +24,34 @@ export default function CountdownSection() {
 
       if (difference > 0) {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-          (difference % (1000 * 60 * 60)) / (1000 * 60)
-        );
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft({ days, hours, minutes, seconds });
+        setIsUrgent(difference < 1000 * 60 * 60 * 24);
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setIsUrgent(false);
       }
     };
 
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
-
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Google Calendar Event Link Generator
   const handleAddToCalendar = () => {
     const title = encodeURIComponent("Hiruna & Thimasha Wedding");
     const details = encodeURIComponent("Join us for the wedding celebration of Hiruna & Thimasha at Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya.");
     const location = encodeURIComponent("Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya");
     const dates = "20261115T050000Z/20261115T110000Z";
-
     const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dates}`;
     window.open(calendarUrl, "_blank");
   };
 
   useGSAP(
     () => {
-      // 1. Header Cinematic Entrance
       gsap.fromTo(
         ".count-reveal",
         { opacity: 0, y: 40, filter: "blur(6px)" },
@@ -72,22 +62,13 @@ export default function CountdownSection() {
           duration: 1,
           stagger: 0.15,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-          },
+          scrollTrigger: { trigger: containerRef.current, start: "top 75%" },
         }
       );
 
-      // 2. Dynamic 3D Card Staggered Rotation & Spring Bounce
       gsap.fromTo(
         ".countdown-card",
-        {
-          opacity: 0,
-          y: 60,
-          scale: 0.85,
-          rotationX: 20,
-        },
+        { opacity: 0, y: 60, scale: 0.85, rotationX: 20 },
         {
           opacity: 1,
           y: 0,
@@ -96,10 +77,7 @@ export default function CountdownSection() {
           duration: 1.1,
           stagger: 0.12,
           ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: ".countdown-cards-container",
-            start: "top 80%",
-          },
+          scrollTrigger: { trigger: ".countdown-cards-container", start: "top 80%" },
         }
       );
     },
@@ -115,35 +93,27 @@ export default function CountdownSection() {
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
-
-        .count-font-cinzel {
-          font-family: 'Cinzel', serif;
-        }
-
-        .count-font-lora {
-          font-family: 'Lora', serif;
-        }
+        .count-font-cinzel { font-family: 'Cinzel', serif; }
+        .count-font-lora { font-family: 'Lora', serif; }
 
         @keyframes continuous-bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-6px);
-          }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
         }
+        .animate-continuous-bounce { animation: continuous-bounce 2s ease-in-out infinite; }
 
-        .animate-continuous-bounce {
-          animation: continuous-bounce 2s ease-in-out infinite;
+        @keyframes urgentPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(126, 34, 206, 0.25); }
+          50% { box-shadow: 0 0 0 8px rgba(126, 34, 206, 0); }
         }
+        .urgent-pulse { animation: urgentPulse 1.8s ease-out infinite; }
       `}</style>
 
-      {/* HEADER SECTION */}
       <div className="text-center max-w-xl mx-auto mb-10 relative z-10">
         <div className="count-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-300/60 bg-purple-50/80 backdrop-blur-md mb-3 shadow-sm">
           <Calendar className="w-3.5 h-3.5 text-[#7e22ce]" />
           <span className="count-font-lora text-[11px] sm:text-xs text-[#7e22ce] tracking-[0.25em] uppercase font-semibold">
-            COUNTING DOWN TO FOREVER
+            {isUrgent ? "ALMOST HERE" : "COUNTING DOWN TO FOREVER"}
           </span>
         </div>
 
@@ -156,54 +126,33 @@ export default function CountdownSection() {
         </p>
       </div>
 
-      {/* COUNTDOWN TIMER GRID */}
       <div className="countdown-cards-container relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full max-w-3xl mx-auto px-2 mb-10">
-        {/* DAYS */}
-        <div className="countdown-card flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-white border border-purple-100 shadow-xl shadow-purple-950/5 group hover:border-purple-300 hover:shadow-[0_15px_40px_rgba(126,34,206,0.12)] hover:-translate-y-1.5 transition-all duration-500">
-          <span className="count-font-cinzel text-4xl sm:text-6xl font-black text-[#1a1820] tracking-wider group-hover:scale-105 transition-transform duration-300">
-            {formatNumber(timeLeft.days)}
-          </span>
-          <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            DAYS
-          </span>
-        </div>
-
-        {/* HOURS */}
-        <div className="countdown-card flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-white border border-purple-100 shadow-xl shadow-purple-950/5 group hover:border-purple-300 hover:shadow-[0_15px_40px_rgba(126,34,206,0.12)] hover:-translate-y-1.5 transition-all duration-500">
-          <span className="count-font-cinzel text-4xl sm:text-6xl font-black text-[#1a1820] tracking-wider group-hover:scale-105 transition-transform duration-300">
-            {formatNumber(timeLeft.hours)}
-          </span>
-          <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            HOURS
-          </span>
-        </div>
-
-        {/* MINUTES */}
-        <div className="countdown-card flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-white border border-purple-100 shadow-xl shadow-purple-950/5 group hover:border-purple-300 hover:shadow-[0_15px_40px_rgba(126,34,206,0.12)] hover:-translate-y-1.5 transition-all duration-500">
-          <span className="count-font-cinzel text-4xl sm:text-6xl font-black text-[#1a1820] tracking-wider group-hover:scale-105 transition-transform duration-300">
-            {formatNumber(timeLeft.minutes)}
-          </span>
-          <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            MINUTES
-          </span>
-        </div>
-
-        {/* SECONDS */}
-        <div className="countdown-card flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-white border border-purple-100 shadow-xl shadow-purple-950/5 group hover:border-purple-300 hover:shadow-[0_15px_40px_rgba(126,34,206,0.12)] hover:-translate-y-1.5 transition-all duration-500">
-          <span className="count-font-cinzel text-4xl sm:text-6xl font-black text-[#7e22ce] tracking-wider group-hover:scale-105 transition-transform duration-300">
-            {formatNumber(timeLeft.seconds)}
-          </span>
-          <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
-            SECONDS
-          </span>
-        </div>
+        {[
+          { value: timeLeft.days, label: "DAYS" },
+          { value: timeLeft.hours, label: "HOURS" },
+          { value: timeLeft.minutes, label: "MINUTES" },
+          { value: timeLeft.seconds, label: "SECONDS" },
+        ].map((item, i) => (
+          <div
+            key={item.label}
+            className={`countdown-card flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-white border border-purple-100 shadow-xl shadow-purple-950/5 active:border-purple-300 active:-translate-y-1 transition-all duration-300 ${
+              isUrgent ? "urgent-pulse border-purple-300" : ""
+            }`}
+          >
+            <span className={`count-font-cinzel text-4xl sm:text-6xl font-black tracking-wider ${i === 3 ? "text-[#7e22ce]" : "text-[#1a1820]"}`}>
+              {formatNumber(item.value)}
+            </span>
+            <span className="count-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.2em] uppercase font-semibold mt-2">
+              {item.label}
+            </span>
+          </div>
+        ))}
       </div>
 
-      {/* ADD TO CALENDAR BUTTON WITH CONTINUOUS BOUNCE ANIMATION */}
       <div className="count-reveal relative z-10 flex justify-center">
         <button
           onClick={handleAddToCalendar}
-          className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#7e22ce] text-white hover:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/25 animate-continuous-bounce count-font-cinzel text-xs sm:text-sm font-bold tracking-widest uppercase cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#7e22ce] text-white active:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/25 animate-continuous-bounce count-font-cinzel text-xs sm:text-sm font-bold tracking-widest uppercase cursor-pointer"
         >
           <CalendarPlus className="w-4 h-4" />
           <span>Add to Calendar</span>

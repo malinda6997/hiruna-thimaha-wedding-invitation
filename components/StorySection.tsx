@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -17,7 +17,6 @@ export default function StorySection() {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Paragraphs 5k (maruwen maruwata type wena)
   const paragraphs = [
     "“Our journey of love, laughter, and endless memories leads us to this forever moment.”",
     "“From the very first glance, our hearts knew they belonged to one another for eternity.”",
@@ -45,11 +44,20 @@ export default function StorySection() {
           },
         }
       );
+
+      // Gentle idle breathing on the portrait — visible on mobile,
+      // unlike a hover-scale which never fires on touch.
+      gsap.to(".story-photo-img", {
+        scale: 1.06,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
     },
     { scope: containerRef }
   );
 
-  // Multi-paragraph typing & rotating effect runner
   useEffect(() => {
     if (!isTypingStarted) return;
 
@@ -57,19 +65,16 @@ export default function StorySection() {
     let timer: NodeJS.Timeout;
 
     if (!isDeleting) {
-      // Typing forward
       if (displayedText.length < currentFullText.length) {
         timer = setTimeout(() => {
           setDisplayedText(currentFullText.substring(0, displayedText.length + 1));
-        }, 40); // typing speed
+        }, 40);
       } else {
-        // Finished typing current paragraph, wait 2 seconds before clearing & going to next
         timer = setTimeout(() => {
           setIsDeleting(true);
         }, 2000);
       }
     } else {
-      // Deleting / backspacing quickly to transition smoothly to next paragraph
       if (displayedText.length > 0) {
         timer = setTimeout(() => {
           setDisplayedText(currentFullText.substring(0, displayedText.length - 1));
@@ -92,31 +97,16 @@ export default function StorySection() {
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-        .story-font-cinzel {
-          font-family: 'Cinzel', serif;
-        }
-        .story-font-lora {
-          font-family: 'Lora', serif;
-        }
+        .story-font-cinzel { font-family: 'Cinzel', serif; }
+        .story-font-lora { font-family: 'Lora', serif; }
 
         @keyframes colorShiftShadow {
-          0% {
-            box-shadow: 0 20px 40px -10px rgba(126, 34, 206, 0.4);
-          }
-          33% {
-            box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.6);
-          }
-          66% {
-            box-shadow: 0 20px 40px -10px rgba(91, 33, 182, 0.5);
-          }
-          100% {
-            box-shadow: 0 20px 40px -10px rgba(126, 34, 206, 0.4);
-          }
+          0% { box-shadow: 0 20px 40px -10px rgba(126, 34, 206, 0.4); }
+          33% { box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.6); }
+          66% { box-shadow: 0 20px 40px -10px rgba(91, 33, 182, 0.5); }
+          100% { box-shadow: 0 20px 40px -10px rgba(126, 34, 206, 0.4); }
         }
-
-        .animated-purple-shadow {
-          animation: colorShiftShadow 6s ease-in-out infinite;
-        }
+        .animated-purple-shadow { animation: colorShiftShadow 6s ease-in-out infinite; }
 
         .cursor-blink::after {
           content: "|";
@@ -125,28 +115,20 @@ export default function StorySection() {
           font-weight: bold;
           margin-left: 2px;
         }
-
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
       `}</style>
 
-      {/* CENTERED VERTICAL CONTAINER */}
       <div className="w-full max-w-md mx-auto flex flex-col items-center text-center">
-        
-        {/* ARCH / DOME SHAPE IMAGE CONTAINER WITH COLOR-SHIFTING SHADOW */}
         <div className="story-reveal relative w-[280px] sm:w-[340px] h-[360px] sm:h-[420px] rounded-t-[180px] rounded-b-3xl overflow-hidden border-4 border-purple-100 bg-purple-50 mb-8 p-1 animated-purple-shadow">
           <div className="w-full h-full rounded-t-[170px] rounded-b-2xl overflow-hidden relative">
             <img
               src="/assets/p5.jpg"
               alt="Hiruna and Thimasha"
-              className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700 ease-out"
+              className="story-photo-img w-full h-full object-cover object-center"
             />
           </div>
         </div>
 
-        {/* THE COUPLE BADGE */}
         <div className="story-reveal inline-flex items-center gap-2 mb-2">
           <Heart className="w-3.5 h-3.5 text-[#7e22ce] fill-[#7e22ce]/30" />
           <span className="story-font-lora text-xs text-[#7e22ce] tracking-[0.3em] uppercase font-semibold">
@@ -155,16 +137,13 @@ export default function StorySection() {
           <Heart className="w-3.5 h-3.5 text-[#7e22ce] fill-[#7e22ce]/30" />
         </div>
 
-        {/* NAMES */}
         <h2 className="story-reveal story-font-cinzel text-3xl sm:text-4xl font-extrabold tracking-wider text-[#1a1820] mb-4 uppercase">
           Hiruna & Thimasha
         </h2>
 
-        {/* MULTI-PARAGRAPH TYPING ANIMATION QUOTE */}
         <p className="story-reveal story-font-lora italic text-sm sm:text-base text-[#554d63] leading-relaxed font-light max-w-sm min-h-[5rem]">
           <span className="cursor-blink">{displayedText}</span>
         </p>
-
       </div>
     </section>
   );

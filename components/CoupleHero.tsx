@@ -2,12 +2,18 @@
 
 import React, { useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ChevronDown, Heart } from "lucide-react";
 import RosePetals from "@/components/RosePetals";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function CoupleHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLImageElement>(null);
 
   useGSAP(
     () => {
@@ -18,6 +24,20 @@ export default function CoupleHero() {
         repeat: -1,
         ease: "sine.inOut",
         yoyo: true,
+      });
+
+      // Subtle parallax drift on the hero photo as the user scrolls away —
+      // cheap on mobile GPUs and makes the exit feel intentional.
+      gsap.to(bgRef.current, {
+        yPercent: 15,
+        scale: 1.08,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       });
 
       const tl = gsap.timeline();
@@ -93,14 +113,14 @@ export default function CoupleHero() {
         <RosePetals />
       </div>
 
-      {/* 1. BACKGROUND PHOTO */}
+      {/* 1. BACKGROUND PHOTO (with parallax) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
+          ref={bgRef}
           src="/assets/p6.jpg"
           alt="Hiruna and Thimasha Wedding"
-          className="w-full h-full object-cover object-[center_35%] sm:object-center brightness-[0.72]"
+          className="w-full h-full object-cover object-[center_35%] sm:object-center brightness-[0.72] will-change-transform"
         />
-        {/* Seamless Bottom Fade Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 via-60% to-[#030206]" />
       </div>
 
@@ -109,7 +129,6 @@ export default function CoupleHero() {
 
       {/* 3. HERO CONTENT WRAPPER */}
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto px-2">
-        {/* BADGE */}
         <div className="hero-badge flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/40 bg-purple-950/70 backdrop-blur-md mb-3 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
           <span className="hero-font-lora text-xs sm:text-sm text-purple-100 tracking-wider uppercase font-semibold">
@@ -118,36 +137,33 @@ export default function CoupleHero() {
           <Heart className="w-3.5 h-3.5 text-purple-300 fill-purple-300/40" />
         </div>
 
-        {/* COUPLE NAMES */}
         <h1 className="hero-title-main hero-font-cinzel animated-text-gradient text-4xl sm:text-7xl md:text-8xl font-black tracking-widest drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] my-2">
           HIRUNA & THIMASHA
         </h1>
 
-        {/* DATE & TIME */}
         <div className="hero-datetime-text hero-font-lora flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 my-2 text-sm sm:text-lg text-white font-bold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           <span>November 15, 2026</span>
           <span className="text-purple-300">•</span>
           <span>10:30 AM – 04:30 PM</span>
         </div>
 
-        {/* QUOTE */}
         <p className="hero-quote hero-font-lora italic text-lg sm:text-2xl text-purple-100 font-medium tracking-wide max-w-2xl my-2 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
           The beautiful beginning of two hearts bound together...
         </p>
 
-        {/* SCROLL BUTTON */}
         <div className="hero-scroll-btn mt-6 sm:mt-8">
           <button
+            aria-label="Scroll to our story"
             onClick={() => {
               const nextSection = document.getElementById("chapter-story");
               nextSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="flex flex-col items-center gap-1.5 text-purple-100 hover:text-white transition-colors duration-300 group cursor-pointer"
+            className="flex flex-col items-center gap-1.5 text-purple-100 active:text-white transition-colors duration-300 group cursor-pointer"
           >
             <span className="hero-font-lora text-xs sm:text-sm tracking-wider uppercase font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
               Discover Our Story
             </span>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-purple-400/50 bg-black/50 flex items-center justify-center group-hover:border-purple-300 group-hover:bg-purple-600/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-purple-400/50 bg-black/50 flex items-center justify-center group-active:border-purple-300 group-active:bg-purple-600/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
               <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-purple-200" />
             </div>
           </button>
