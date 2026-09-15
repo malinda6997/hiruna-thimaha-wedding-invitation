@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Calendar } from "lucide-react";
+import { Calendar, CalendarPlus } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -48,18 +48,29 @@ export default function CountdownSection() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
+  // Google Calendar Event Link Generator
+  const handleAddToCalendar = () => {
+    const title = encodeURIComponent("Hiruna & Thimasha Wedding");
+    const details = encodeURIComponent("Join us for the wedding celebration of Hiruna & Thimasha at Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya.");
+    const location = encodeURIComponent("Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya");
+    const dates = "20261115T050000Z/20261115T110000Z";
+
+    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dates}`;
+    window.open(calendarUrl, "_blank");
+  };
+
   useGSAP(
     () => {
       // 1. Header Cinematic Entrance
       gsap.fromTo(
         ".count-reveal",
-        { opacity: 0, y: 50, filter: "blur(8px)" },
+        { opacity: 0, y: 40, filter: "blur(6px)" },
         {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
           duration: 1,
-          stagger: 0.18,
+          stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
             trigger: containerRef.current,
@@ -73,17 +84,17 @@ export default function CountdownSection() {
         ".countdown-card",
         {
           opacity: 0,
-          y: 80,
-          scale: 0.8,
-          rotationX: 30,
+          y: 60,
+          scale: 0.85,
+          rotationX: 20,
         },
         {
           opacity: 1,
           y: 0,
           scale: 1,
           rotationX: 0,
-          duration: 1.2,
-          stagger: 0.15,
+          duration: 1.1,
+          stagger: 0.12,
           ease: "back.out(1.7)",
           scrollTrigger: {
             trigger: ".countdown-cards-container",
@@ -100,7 +111,7 @@ export default function CountdownSection() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[70vh] w-full bg-[#fbfbfa] text-[#1a1820] py-24 px-4 flex flex-col items-center justify-center overflow-hidden select-none [perspective:1200px]"
+      className="relative min-h-[75vh] w-full bg-[#fbfbfa] text-[#1a1820] py-20 px-4 flex flex-col items-center justify-center overflow-hidden select-none [perspective:1200px]"
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
@@ -112,10 +123,23 @@ export default function CountdownSection() {
         .count-font-lora {
           font-family: 'Lora', serif;
         }
+
+        @keyframes continuous-bounce {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-6px);
+          }
+        }
+
+        .animate-continuous-bounce {
+          animation: continuous-bounce 2s ease-in-out infinite;
+        }
       `}</style>
 
       {/* HEADER SECTION */}
-      <div className="text-center max-w-xl mx-auto mb-12 relative z-10">
+      <div className="text-center max-w-xl mx-auto mb-10 relative z-10">
         <div className="count-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-300/60 bg-purple-50/80 backdrop-blur-md mb-3 shadow-sm">
           <Calendar className="w-3.5 h-3.5 text-[#7e22ce]" />
           <span className="count-font-lora text-[11px] sm:text-xs text-[#7e22ce] tracking-[0.25em] uppercase font-semibold">
@@ -133,7 +157,7 @@ export default function CountdownSection() {
       </div>
 
       {/* COUNTDOWN TIMER GRID */}
-      <div className="countdown-cards-container relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full max-w-3xl mx-auto px-2">
+      <div className="countdown-cards-container relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full max-w-3xl mx-auto px-2 mb-10">
         {/* DAYS */}
         <div className="countdown-card flex flex-col items-center justify-center p-5 sm:p-7 rounded-2xl bg-white border border-purple-100 shadow-xl shadow-purple-950/5 group hover:border-purple-300 hover:shadow-[0_15px_40px_rgba(126,34,206,0.12)] hover:-translate-y-1.5 transition-all duration-500">
           <span className="count-font-cinzel text-4xl sm:text-6xl font-black text-[#1a1820] tracking-wider group-hover:scale-105 transition-transform duration-300">
@@ -173,6 +197,17 @@ export default function CountdownSection() {
             SECONDS
           </span>
         </div>
+      </div>
+
+      {/* ADD TO CALENDAR BUTTON WITH CONTINUOUS BOUNCE ANIMATION */}
+      <div className="count-reveal relative z-10 flex justify-center">
+        <button
+          onClick={handleAddToCalendar}
+          className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#7e22ce] text-white hover:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/25 animate-continuous-bounce count-font-cinzel text-xs sm:text-sm font-bold tracking-widest uppercase cursor-pointer"
+        >
+          <CalendarPlus className="w-4 h-4" />
+          <span>Add to Calendar</span>
+        </button>
       </div>
     </section>
   );
