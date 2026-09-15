@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -14,6 +14,51 @@ export default function WeInviteSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const petalsContainerRef = useRef<HTMLDivElement>(null);
+
+  // Rose petals falling generator for the image box
+  useEffect(() => {
+    const container = petalsContainerRef.current;
+    if (!container) return;
+
+    const petalCount = 12;
+    const petals: HTMLDivElement[] = [];
+
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement("div");
+      petal.className = "absolute pointer-events-none rounded-full bg-pink-300/60 blur-[0.5px]";
+      
+      // Random sizes, starting positions and opacity
+      const size = Math.random() * 8 + 6;
+      const startX = Math.random() * container.offsetWidth;
+      const duration = Math.random() * 4 + 3;
+      const delay = Math.random() * 5;
+
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 1.4}px`;
+      petal.style.left = `${startX}px`;
+      petal.style.top = `-20px`;
+      petal.style.borderRadius = "60% 40% 60% 40%";
+
+      container.appendChild(petal);
+      petals.push(petal);
+
+      // GSAP Fall Animation
+      gsap.to(petal, {
+        y: container.offsetHeight + 40,
+        x: `+=${(Math.random() - 0.5) * 80}`,
+        rotation: Math.random() * 360,
+        duration: duration,
+        repeat: -1,
+        delay: delay,
+        ease: "none",
+      });
+    }
+
+    return () => {
+      petals.forEach((p) => p.remove());
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -73,9 +118,16 @@ export default function WeInviteSection() {
       {/* MAIN CONTAINER (GRID: LEFT IMAGE, RIGHT DETAILS) */}
       <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
         
-        {/* LEFT SIDE: FULL NORMAL IMAGE WITH OBJECT-CONTAIN */}
-        <div ref={imageRef} className="lg:col-span-5 flex justify-center">
-          <div className="w-full max-w-sm sm:max-w-md h-[450px] sm:h-[550px] flex items-center justify-center">
+        {/* LEFT SIDE: COUPLE IMAGE WITH FALLING ROSE PETALS */}
+        <div ref={imageRef} className="lg:col-span-5 flex justify-center relative">
+          
+          {/* Rose Petals Overlay Container */}
+          <div
+            ref={petalsContainerRef}
+            className="absolute inset-0 overflow-hidden pointer-events-none z-20 rounded-2xl"
+          />
+
+          <div className="w-full max-w-sm sm:max-w-md h-[450px] sm:h-[550px] flex items-center justify-center relative z-10">
             <img
               src="/assets/invite-couple.png"
               alt="Hiruna and Thimasha Invitation"
@@ -96,9 +148,9 @@ export default function WeInviteSection() {
             <Heart className="w-4 h-4 text-[#7e22ce] fill-[#7e22ce]/30" />
           </div>
 
-          {/* MAIN TITLE */}
-          <h2 className="invite-reveal invite-font-cinzel text-3xl sm:text-5xl font-extrabold tracking-wide text-[#1a1820] mb-4">
-            We Invite You
+          {/* MAIN TITLE WITH 'YOU' HIGHLIGHTED */}
+          <h2 className="invite-reveal invite-font-lora text-3xl sm:text-5xl font-extrabold tracking-wide text-[#1a1820] mb-4">
+            We Invite <span className="text-[#7e22ce] italic font-lora">You</span>
           </h2>
 
           {/* INVITATION PARAGRAPH */}
