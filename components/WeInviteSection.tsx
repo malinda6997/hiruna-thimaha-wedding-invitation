@@ -1,10 +1,10 @@
 "use client";
 
-import React, {useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Heart, MapPin, Calendar, Clock } from "lucide-react";
+import { Heart, MapPin, Calendar, Clock, Download } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,18 +20,18 @@ export default function WeInviteSection() {
   const fullText = "Together with our families, we joyfully invite you to celebrate our wedding day. Your presence, love, and blessings mean the world to us as we begin this new chapter together.";
   const [isTypingStarted, setIsTypingStarted] = useState(false);
 
-  // Rose petals falling generator for the image box
   useEffect(() => {
     const container = petalsContainerRef.current;
     if (!container) return;
 
     const petalCount = 12;
     const petals: HTMLDivElement[] = [];
+    const tweens: gsap.core.Tween[] = [];
 
     for (let i = 0; i < petalCount; i++) {
       const petal = document.createElement("div");
       petal.className = "absolute pointer-events-none rounded-full bg-purple-300/50 blur-[0.5px]";
-      
+
       const size = Math.random() * 8 + 6;
       const startX = Math.random() * container.offsetWidth;
       const duration = Math.random() * 4 + 3;
@@ -46,18 +46,21 @@ export default function WeInviteSection() {
       container.appendChild(petal);
       petals.push(petal);
 
-      gsap.to(petal, {
-        y: container.offsetHeight + 40,
-        x: `+=${(Math.random() - 0.5) * 80}`,
-        rotation: Math.random() * 360,
-        duration: duration,
-        repeat: -1,
-        delay: delay,
-        ease: "none",
-      });
+      tweens.push(
+        gsap.to(petal, {
+          y: container.offsetHeight + 40,
+          x: `+=${(Math.random() - 0.5) * 80}`,
+          rotation: Math.random() * 360,
+          duration: duration,
+          repeat: -1,
+          delay: delay,
+          ease: "none",
+        })
+      );
     }
 
     return () => {
+      tweens.forEach((t) => t.kill());
       petals.forEach((p) => p.remove());
     };
   }, []);
@@ -72,10 +75,7 @@ export default function WeInviteSection() {
           x: 0,
           duration: 1.2,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 70%",
-          },
+          scrollTrigger: { trigger: containerRef.current, start: "top 70%" },
         }
       );
 
@@ -100,7 +100,6 @@ export default function WeInviteSection() {
     { scope: containerRef }
   );
 
-  // Single-run typing effect runner
   useEffect(() => {
     if (!isTypingStarted) return;
     let i = 0;
@@ -112,7 +111,7 @@ export default function WeInviteSection() {
       } else {
         clearInterval(timer);
       }
-    }, 30); // typing speed
+    }, 30);
 
     return () => clearInterval(timer);
   }, [isTypingStarted]);
@@ -125,25 +124,14 @@ export default function WeInviteSection() {
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-        .invite-font-cinzel {
-          font-family: 'Cinzel', serif;
-        }
-        .invite-font-lora {
-          font-family: 'Lora', serif;
-        }
+        .invite-font-cinzel { font-family: 'Cinzel', serif; }
+        .invite-font-lora { font-family: 'Lora', serif; }
 
         @keyframes continuous-bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-6px);
-          }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
         }
-
-        .animate-continuous-bounce {
-          animation: continuous-bounce 2s ease-in-out infinite;
-        }
+        .animate-continuous-bounce { animation: continuous-bounce 2.4s ease-in-out infinite; }
 
         .cursor-blink-invite::after {
           content: "|";
@@ -152,21 +140,9 @@ export default function WeInviteSection() {
           font-weight: bold;
           margin-left: 2px;
         }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-
-        /* Rotating border beam animation */
-        @keyframes rotateBorder {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
+        @keyframes rotateBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .animated-border-card {
           position: relative;
@@ -174,24 +150,19 @@ export default function WeInviteSection() {
           background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 100%);
           overflow: hidden;
         }
-
         .animated-border-card::before {
           content: '';
           position: absolute;
           inset: -50%;
           background: conic-gradient(
             from 0deg at 50% 50%,
-            transparent 0deg,
-            transparent 60deg,
-            #7e22ce 150deg,
-            #c084fc 200deg,
-            transparent 260deg,
-            transparent 360deg
+            transparent 0deg, transparent 60deg,
+            #7e22ce 150deg, #c084fc 200deg,
+            transparent 260deg, transparent 360deg
           );
           animation: rotateBorder 5s linear infinite;
           z-index: 0;
         }
-
         .animated-border-card-inner {
           position: relative;
           background: linear-gradient(to bottom right, #ffffff, #faf5ff);
@@ -201,16 +172,12 @@ export default function WeInviteSection() {
         }
       `}</style>
 
-      {/* MAIN CONTAINER */}
       <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-        
-        {/* LEFT SIDE: COUPLE IMAGE WITH PETALS */}
         <div ref={imageRef} className="lg:col-span-5 flex justify-center relative">
           <div
             ref={petalsContainerRef}
             className="absolute inset-0 overflow-hidden pointer-events-none z-20 rounded-2xl"
           />
-
           <div className="w-full max-w-xs sm:max-w-sm h-[380px] sm:h-[480px] flex items-center justify-center relative z-10">
             <img
               src="/assets/invite-couple.png"
@@ -220,9 +187,7 @@ export default function WeInviteSection() {
           </div>
         </div>
 
-        {/* RIGHT SIDE: DETAILS */}
         <div ref={contentRef} className="lg:col-span-7 flex flex-col text-center lg:text-left">
-          
           <div className="invite-reveal inline-flex items-center justify-center lg:justify-start gap-2 mb-2">
             <Heart className="w-3.5 h-3.5 text-[#7e22ce] fill-[#7e22ce]/30" />
             <span className="invite-font-lora text-xs text-[#7e22ce] tracking-[0.3em] uppercase font-semibold">
@@ -235,26 +200,19 @@ export default function WeInviteSection() {
             We Invite <span className="text-[#7e22ce] italic font-serif">You</span>
           </h2>
 
-          {/* SINGLE-RUN TYPING ANIMATION PARAGRAPH */}
           <p className="invite-reveal invite-font-lora text-xs sm:text-sm text-[#554d63] leading-relaxed font-light mb-6 max-w-xl min-h-[4rem]">
             <span className={displayedText.length < fullText.length ? "cursor-blink-invite" : ""}>{displayedText}</span>
           </p>
 
-          {/* PREMIUM EVENT DETAILS CARD WITH ROTATING PURPLE BORDER ANIMATION */}
           <div className="invite-reveal animated-border-card shadow-xl shadow-purple-950/15 max-w-xl mb-6">
             <div className="animated-border-card-inner p-6 flex flex-col gap-4">
-              
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-[#7e22ce] flex items-center justify-center flex-shrink-0 text-white shadow-md shadow-purple-900/20">
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">
-                    Date
-                  </h4>
-                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820]">
-                    Sunday, November 15, 2026
-                  </p>
+                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">Date</h4>
+                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820]">Sunday, November 15, 2026</p>
                 </div>
               </div>
 
@@ -265,12 +223,8 @@ export default function WeInviteSection() {
                   <Clock className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">
-                    Time
-                  </h4>
-                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820]">
-                    Auspicious Time: 10:30 AM onwards
-                  </p>
+                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">Time</h4>
+                  <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820]">Auspicious Time: 10:30 AM onwards</p>
                 </div>
               </div>
 
@@ -281,33 +235,28 @@ export default function WeInviteSection() {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">
-                    Location / Venue
-                  </h4>
+                  <h4 className="invite-font-cinzel text-xs font-extrabold text-[#7e22ce] uppercase tracking-[0.2em] mb-0.5">Location / Venue</h4>
                   <p className="invite-font-lora text-sm sm:text-base font-bold text-[#1a1820] leading-snug">
                     Kavindu Grand Banquet Hall, Weralugama, Kuliyapitiya
                   </p>
                 </div>
               </div>
-
             </div>
           </div>
 
-          {/* LARGER DOWNLOAD INVITATION BUTTON WITH CONTINUOUS BOUNCE ANIMATION */}
           <div className="invite-reveal flex justify-center lg:justify-start">
             <a
               href="/assets/invite-couple.png"
               download="Hiruna_Thimasha_Wedding_Invitation.png"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 rounded-full bg-[#7e22ce] text-white hover:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/30 animate-continuous-bounce font-sans text-sm sm:text-base font-bold tracking-widest uppercase"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-10 py-4 rounded-full bg-[#7e22ce] text-white active:bg-[#6b21a8] transition-all duration-300 shadow-xl shadow-purple-950/30 animate-continuous-bounce font-sans text-sm sm:text-base font-bold tracking-widest uppercase"
             >
-              Click me
+              <Download className="w-4 h-4" />
+              Download Invitation
             </a>
           </div>
-
         </div>
-
       </div>
     </section>
   );

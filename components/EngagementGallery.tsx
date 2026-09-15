@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -13,6 +13,18 @@ if (typeof window !== "undefined") {
 export default function EngagementGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const photos = [
+    { src: "/assets/p1.jpg", title: "Engagement Moment I" },
+    { src: "/assets/p2.jpg", title: "Engagement Moment II" },
+    { src: "/assets/p3.jpg", title: "Engagement Moment III" },
+    { src: "/assets/p4.jpg", title: "Engagement Moment IV" },
+    { src: "/assets/p5.jpg", title: "Engagement Moment V" },
+    { src: "/assets/p6.jpg", title: "Engagement Moment VI" },
+    { src: "/assets/p7.jpg", title: "Engagement Moment VII" },
+    { src: "/assets/p8.jpg", title: "Engagement Moment VIII" },
+  ];
 
   useGSAP(
     () => {
@@ -29,27 +41,26 @@ export default function EngagementGallery() {
           pin: true,
           scrub: 1,
           end: () => "+=" + track.scrollWidth,
-          invalidateOnRefresh: true,
+          invalidateOnRefresh: true, // recalculates on resize/orientation change
+          onUpdate: (self) => {
+            const idx = Math.round(self.progress * (photos.length - 1));
+            setActiveIndex(idx);
+          },
         },
       });
 
+      // Recompute pin distance if the phone rotates or the address bar
+      // shows/hides (both change window.innerWidth on mobile).
+      const handleResize = () => ScrollTrigger.refresh();
+      window.addEventListener("resize", handleResize);
+
       return () => {
         tween.kill();
+        window.removeEventListener("resize", handleResize);
       };
     },
     { scope: containerRef }
   );
-
-  const photos = [
-    { src: "/assets/p1.jpg", title: "Engagement Moment I" },
-    { src: "/assets/p2.jpg", title: "Engagement Moment II" },
-    { src: "/assets/p3.jpg", title: "Engagement Moment III" },
-    { src: "/assets/p4.jpg", title: "Engagement Moment IV" },
-    { src: "/assets/p5.jpg", title: "Engagement Moment V" },
-    { src: "/assets/p6.jpg", title: "Engagement Moment VI" },
-    { src: "/assets/p7.jpg", title: "Engagement Moment VII" },
-    { src: "/assets/p8.jpg", title: "Engagement Moment VIII" },
-  ];
 
   return (
     <section
@@ -58,16 +69,10 @@ export default function EngagementGallery() {
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
-
-        .gal-font-cinzel {
-          font-family: 'Cinzel', serif;
-        }
-        .gal-font-lora {
-          font-family: 'Lora', serif;
-        }
+        .gal-font-cinzel { font-family: 'Cinzel', serif; }
+        .gal-font-lora { font-family: 'Lora', serif; }
       `}</style>
 
-      {/* FLOATING HEADER WITH PROPER GAP & PURE WHITE BG FRIENDLY ACCENTS */}
       <div className="absolute top-6 left-6 sm:left-12 z-30 flex flex-col pointer-events-none mb-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-200 bg-purple-50 mb-2 w-max shadow-sm">
           <Sparkles className="w-3 h-3 text-[#7e22ce]" />
@@ -80,25 +85,31 @@ export default function EngagementGallery() {
         </h2>
       </div>
 
-      {/* HORIZONTAL TRACK WITH GAP FOR TITLE */}
-      <div
-        ref={trackRef}
-        className="flex items-center w-max h-full pt-16"
-      >
+      {/* PROGRESS DOTS — orients the guest during horizontal scroll-jack */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5">
+        {photos.map((_, i) => (
+          <div
+            key={i}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === activeIndex ? "w-5 bg-[#7e22ce]" : "w-1.5 bg-purple-200"
+            }`}
+          />
+        ))}
+      </div>
+
+      <div ref={trackRef} className="flex items-center w-max h-full pt-16">
         {photos.map((photo, index) => (
           <div
             key={index}
             className="relative w-screen h-screen flex-shrink-0 flex items-center justify-center p-4 sm:p-12 overflow-hidden"
           >
-            {/* FULLSCREEN IMAGE CONTAINER WITH WHITE THEME COMPATIBILITY */}
             <div className="relative w-full h-full max-w-5xl max-h-[78vh] rounded-3xl overflow-hidden shadow-2xl bg-white border border-purple-100 flex items-center justify-center mt-12 sm:mt-16">
               <img
                 src={photo.src}
                 alt={photo.title}
-                className="w-full h-full object-cover object-center scale-105 hover:scale-100 transition-transform duration-1000 ease-out"
+                className="w-full h-full object-cover object-center"
+                loading="lazy"
               />
-
-              {/* GRADIENT OVERLAY FOR TEXT */}
               <div className="absolute inset-0 bg-gradient-to-t from-purple-950/80 via-purple-950/20 to-transparent flex flex-col justify-end p-8 sm:p-12">
                 <span className="gal-font-cinzel text-xs sm:text-sm font-bold text-purple-200 uppercase tracking-[0.3em] mb-2">
                   Memory 0{index + 1} / 08
