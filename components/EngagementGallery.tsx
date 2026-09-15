@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -41,20 +41,20 @@ export default function EngagementGallery() {
   );
 
   const photos = [
-    { src: "/assets/p1.jpg", title: "Moment I" },
-    { src: "/assets/p2.jpg", title: "Moment II" },
-    { src: "/assets/p3.jpg", title: "Moment III" },
-    { src: "/assets/p4.jpg", title: "Moment IV" },
-    { src: "/assets/p5.jpg", title: "Moment V" },
-    { src: "/assets/p6.jpg", title: "Moment VI" },
-    { src: "/assets/p7.jpg", title: "Moment VII" },
-    { src: "/assets/p8.jpg", title: "Moment VIII" },
+    { src: "/assets/p1.jpg", title: "Engagement Moment I" },
+    { src: "/assets/p2.jpg", title: "Engagement Moment II" },
+    { src: "/assets/p3.jpg", title: "Engagement Moment III" },
+    { src: "/assets/p4.jpg", title: "Engagement Moment IV" },
+    { src: "/assets/p5.jpg", title: "Engagement Moment V" },
+    { src: "/assets/p6.jpg", title: "Engagement Moment VI" },
+    { src: "/assets/p7.jpg", title: "Engagement Moment VII" },
+    { src: "/assets/p8.jpg", title: "Engagement Moment VIII" },
   ];
 
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full bg-[#fbfbfa] text-[#1a1820] overflow-hidden flex flex-col justify-center select-none"
+      className="relative h-screen w-full bg-[#fbfbfa] text-[#1a1820] overflow-hidden flex flex-col justify-center select-none pt-20"
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
@@ -67,47 +67,43 @@ export default function EngagementGallery() {
         }
       `}</style>
 
-      {/* HEADER TOP INFO */}
-      <div className="absolute top-6 left-6 sm:left-12 z-20 flex flex-col">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-200 bg-purple-50 mb-1.5 w-max shadow-sm">
+      {/* FLOATING HEADER WITH PROPER GAP & PURE WHITE BG FRIENDLY ACCENTS */}
+      <div className="absolute top-6 left-6 sm:left-12 z-30 flex flex-col pointer-events-none mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-200 bg-purple-50 mb-2 w-max shadow-sm">
           <Sparkles className="w-3 h-3 text-[#7e22ce]" />
           <span className="gal-font-lora text-[10px] sm:text-xs text-[#7e22ce] tracking-[0.25em] uppercase font-semibold">
             ENGAGEMENT GALLERY
           </span>
         </div>
-        <h2 className="gal-font-cinzel text-xl sm:text-4xl font-extrabold tracking-wide text-[#1a1820]">
+        <h2 className="gal-font-cinzel text-xl sm:text-3xl font-extrabold tracking-wide text-[#1a1820]">
           Our Precious <span className="text-[#7e22ce] italic font-serif">Story</span>
         </h2>
       </div>
 
-      <div className="absolute top-8 right-8 z-20 hidden sm:flex items-center gap-2 text-xs font-semibold text-[#554d63] gal-font-lora">
-        <span>Scroll to Explore</span>
-        <ArrowRight className="w-4 h-4 text-[#7e22ce] animate-pulse" />
-      </div>
-
-      {/* HORIZONTAL MOVING TRACK WITH REDUCED PADDING & BALANCED SPACING */}
+      {/* HORIZONTAL TRACK WITH GAP FOR TITLE */}
       <div
         ref={trackRef}
-        className="flex items-center gap-5 sm:gap-8 px-4 sm:px-12 w-max h-full pt-12"
+        className="flex items-center w-max h-full pt-16"
       >
         {photos.map((photo, index) => (
           <div
             key={index}
-            className="group relative w-[260px] sm:w-[360px] h-[340px] sm:h-[450px] rounded-2xl overflow-hidden bg-white border border-purple-100 shadow-xl shadow-purple-950/10 flex-shrink-0 p-2.5 transition-transform duration-500 hover:-translate-y-1.5"
+            className="relative w-screen h-screen flex-shrink-0 flex items-center justify-center p-4 sm:p-12 overflow-hidden"
           >
-            <div className="w-full h-full rounded-xl overflow-hidden relative">
+            {/* FULLSCREEN IMAGE CONTAINER WITH WHITE THEME COMPATIBILITY */}
+            <div className="relative w-full h-full max-w-5xl max-h-[78vh] rounded-3xl overflow-hidden shadow-2xl bg-white border border-purple-100 flex items-center justify-center mt-12 sm:mt-16">
               <img
                 src={photo.src}
                 alt={photo.title}
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover object-center scale-105 hover:scale-100 transition-transform duration-1000 ease-out"
               />
-              
-              {/* GRADIENT OVERLAY & TITLE */}
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300 flex flex-col justify-end p-5">
-                <span className="gal-font-cinzel text-[10px] sm:text-xs font-bold text-purple-300 uppercase tracking-widest mb-1">
-                  Memory {index + 1}
+
+              {/* GRADIENT OVERLAY FOR TEXT */}
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-950/80 via-purple-950/20 to-transparent flex flex-col justify-end p-8 sm:p-12">
+                <span className="gal-font-cinzel text-xs sm:text-sm font-bold text-purple-200 uppercase tracking-[0.3em] mb-2">
+                  Memory 0{index + 1} / 08
                 </span>
-                <h3 className="gal-font-cinzel text-base sm:text-xl font-bold text-white">
+                <h3 className="gal-font-cinzel text-2xl sm:text-4xl font-extrabold text-white tracking-wide">
                   {photo.title}
                 </h3>
               </div>

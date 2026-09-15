@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Heart, Phone, Sparkles } from "lucide-react";
+import { Heart } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -27,7 +27,7 @@ export default function Footer() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 80%",
+            start: "top 75%",
           },
         }
       );
@@ -38,7 +38,7 @@ export default function Footer() {
   return (
     <footer
       ref={containerRef}
-      className="relative min-h-[70vh] w-full bg-[#fbfbfa] text-[#1a1820] py-20 px-6 flex flex-col items-center justify-between overflow-hidden select-none"
+      className="relative min-h-screen w-full bg-[#fbfbfa] text-[#1a1820] flex flex-col items-center justify-between py-16 px-6 select-none overflow-hidden"
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
@@ -51,79 +51,30 @@ export default function Footer() {
         }
       `}</style>
 
-      {/* TOP CONTENT */}
-      <div className="footer-reveal text-center max-w-xl mx-auto my-auto flex flex-col items-center">
+      {/* TOP EMPTY SPACE BALANCER */}
+      <div />
+
+      {/* CENTER CONTENT */}
+      <div className="footer-reveal my-auto text-center flex flex-col items-center max-w-md">
+        <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center border border-purple-200 text-[#7e22ce] mb-5 shadow-sm">
+          <Heart className="w-6 h-6 fill-[#7e22ce]/30 animate-pulse" />
+        </div>
         
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-200 bg-purple-50 mb-4 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-[#7e22ce]" />
-          <span className="footer-font-lora text-[11px] sm:text-xs text-[#7e22ce] tracking-[0.25em] uppercase font-semibold">
-            FOREVER TOGETHER
-          </span>
-          <Sparkles className="w-3.5 h-3.5 text-[#7e22ce]" />
-        </div>
-
-        <h2 className="footer-font-cinzel text-3xl sm:text-5xl font-extrabold tracking-wider text-[#1a1820] mb-3">
+        <h3 className="footer-font-cinzel text-3xl sm:text-4xl font-extrabold tracking-wider text-[#1a1820] mb-3 uppercase">
           Hiruna & Thimasha
-        </h2>
-
-        <p className="footer-font-lora italic text-sm sm:text-base text-[#554d63] mb-8">
-          Thank you for being part of our special beginning.
+        </h3>
+        
+        <p className="footer-font-lora text-sm sm:text-base text-[#554d63] italic font-light">
+          &ldquo;With love, forever and always.&rdquo;
         </p>
-
-        {/* COUPLE CONTACT NUMBERS WITH NAMES */}
-        <div className="footer-reveal flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-10">
-          
-          {/* HIRUNA'S NUMBER */}
-          <a
-            href="tel:+94700000000"
-            className="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-white border border-purple-100 shadow-md shadow-purple-950/5 hover:border-purple-300 hover:scale-105 transition-all duration-300 text-left footer-font-lora"
-          >
-            <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center border border-purple-200 flex-shrink-0">
-              <Phone className="w-4 h-4 text-[#7e22ce]" />
-            </div>
-            <div>
-              <span className="block text-[11px] font-bold tracking-wider text-[#7e22ce] uppercase footer-font-cinzel">
-                Hiruna
-              </span>
-              <span className="text-sm font-medium text-[#1a1820]">
-                +94 70 000 0000
-              </span>
-            </div>
-          </a>
-
-          {/* THIMASHA'S NUMBER */}
-          <a
-            href="tel:+94710000000"
-            className="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-white border border-purple-100 shadow-md shadow-purple-950/5 hover:border-purple-300 hover:scale-105 transition-all duration-300 text-left footer-font-lora"
-          >
-            <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center border border-purple-200 flex-shrink-0">
-              <Phone className="w-4 h-4 text-[#7e22ce]" />
-            </div>
-            <div>
-              <span className="block text-[11px] font-bold tracking-wider text-[#7e22ce] uppercase footer-font-cinzel">
-                Thimasha
-              </span>
-              <span className="text-sm font-medium text-[#1a1820]">
-                +94 71 000 0000
-              </span>
-            </div>
-          </a>
-
-        </div>
-
       </div>
 
-      {/* BOTTOM COPYRIGHT & DEVELOPED BY */}
-      <div className="footer-reveal w-full max-w-4xl mx-auto pt-8 border-t border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#554d63] footer-font-lora text-center sm:text-left">
-        
-        <p>© 2026 Hiruna & Thimasha. All Rights Reserved.</p>
-
-        <p className="flex items-center justify-center gap-1.5 font-medium">
-          <span>Developed with</span>
-          <Heart className="w-3.5 h-3.5 text-[#7e22ce] fill-[#7e22ce]" />
-          <span>by <strong className="text-[#1a1820] footer-font-cinzel tracking-wider">Malinda Prabath</strong></span>
+      {/* BOTTOM COPYRIGHT & DEVELOPER CREDITS */}
+      <div className="footer-reveal text-center text-xs text-[#554d63]/80 tracking-wider footer-font-lora">
+        <p>
+          © 2026 Wedding Invitation. Developed with precision by{" "}
+          <span className="text-[#7e22ce] font-semibold tracking-normal">Malinda Prabath</span>.
         </p>
-
       </div>
     </footer>
   );

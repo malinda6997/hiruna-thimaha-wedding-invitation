@@ -12,72 +12,33 @@ if (typeof window !== "undefined") {
 
 export default function StorySection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imgWrapperRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      // 1. Text reveal with 3D rotation & blur on scroll
       gsap.fromTo(
         ".story-reveal",
-        { opacity: 0, y: 60, rotationX: 15, filter: "blur(10px)" },
+        { opacity: 0, y: 35, filter: "blur(6px)" },
         {
           opacity: 1,
           y: 0,
-          rotationX: 0,
           filter: "blur(0px)",
-          duration: 1.2,
-          stagger: 0.2,
+          duration: 1,
+          stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 70%",
-          },
-        }
-      );
-
-      // 2. Cinematic Arch Image 3D Scale & Slide Entrance
-      gsap.fromTo(
-        imgWrapperRef.current,
-        {
-          opacity: 0,
-          scale: 0.75,
-          y: 100,
-          rotateX: 20,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 1.6,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: imgWrapperRef.current,
             start: "top 75%",
           },
         }
       );
-
-      // 3. Dynamic Parallax on the inside image
-      gsap.to(".story-arch-img", {
-        yPercent: -12,
-        ease: "none",
-        scrollTrigger: {
-          trigger: imgWrapperRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
     },
     { scope: containerRef }
   );
 
   return (
     <section
-      id="chapter-story"
       ref={containerRef}
-      className="relative min-h-screen w-full bg-[#fbfbfa] text-[#1a1820] py-28 px-6 flex flex-col items-center justify-center overflow-hidden select-none [perspective:1200px]"
+      className="relative min-h-screen w-full bg-[#fbfbfa] text-[#1a1820] py-20 px-6 flex flex-col items-center justify-center overflow-hidden select-none"
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
@@ -85,106 +46,44 @@ export default function StorySection() {
         .story-font-cinzel {
           font-family: 'Cinzel', serif;
         }
-
         .story-font-lora {
           font-family: 'Lora', serif;
         }
-
-        @keyframes borderBeamLight {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        .border-beam-container {
-          position: absolute;
-          inset: -2px;
-          border-radius: inherit;
-          overflow: hidden;
-          pointer-events-none;
-          z-index: 5;
-        }
-        .border-beam-light {
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: conic-gradient(
-            from 0deg at 50% 50%,
-            transparent 0deg,
-            transparent 310deg,
-            rgba(88, 28, 135, 0.2) 335deg,
-            rgba(88, 28, 135, 0.7) 355deg,
-            #581c87 360deg
-          );
-          animation: borderBeamLight 8s linear infinite;
-        }
-
-        @keyframes fullBreathLightGlow {
-          0%, 100% { opacity: 0.25; transform: scale(0.97); }
-          50% { opacity: 0.6; transform: scale(1.03); }
-        }
-        .animate-light-breath-glow {
-          animation: fullBreathLightGlow 4s ease-in-out infinite;
-          will-change: opacity, transform;
-        }
       `}</style>
 
-      {/* TOP HEADER CONTENT */}
-      <div className="relative z-10 text-center max-w-2xl mx-auto mb-14">
-        <span className="story-reveal story-font-lora text-xs sm:text-sm text-[#7e22ce] tracking-[0.3em] uppercase font-semibold mb-3 block">
-          A BEAUTIFUL BEGINNING
-        </span>
-
-        <h2 className="story-reveal story-font-lora italic text-2xl sm:text-4xl text-[#2e233d] font-normal leading-relaxed mb-4 drop-shadow-sm">
-          "Two souls with but a single thought, <br className="hidden sm:block" /> two hearts that beat as one..."
-        </h2>
-
-        <p className="story-reveal story-font-lora text-sm sm:text-base text-[#554d63] leading-relaxed font-light max-w-xl mx-auto">
-          As we begin this wonderful chapter of our lives, we warmly invite you to share in our joy and bless us on our special day.
-        </p>
-      </div>
-
-      {/* ARCH-FRAMED IMAGE CONTAINER */}
-      <div className="relative flex flex-col items-center mb-14">
-        <div className="absolute inset-0 rounded-t-[190px] sm:rounded-t-[230px] rounded-b-3xl bg-gradient-to-r from-purple-300/50 via-purple-500/30 to-indigo-300/50 blur-[35px] pointer-events-none animate-light-breath-glow z-0" />
-
-        <div
-          ref={imgWrapperRef}
-          className="relative z-10 w-full max-w-md sm:max-w-lg h-[400px] sm:h-[530px] rounded-t-[180px] sm:rounded-t-[220px] rounded-b-3xl overflow-hidden p-[2px] shadow-[0_25px_60px_rgba(88,28,135,0.2)] bg-white"
-          style={{ border: "1px solid rgba(126, 34, 206, 0.25)" }}
-        >
-          <div className="border-beam-container">
-            <div className="border-beam-light" />
-          </div>
-
-          <div className="w-full h-full rounded-t-[178px] sm:rounded-t-[218px] rounded-b-[22px] overflow-hidden relative bg-[#fbfbfa] z-10">
+      {/* CENTERED VERTICAL CONTAINER */}
+      <div className="w-full max-w-md mx-auto flex flex-col items-center text-center">
+        
+        {/* ARCH / DOME SHAPE IMAGE CONTAINER */}
+        <div className="story-reveal relative w-[280px] sm:w-[340px] h-[360px] sm:h-[420px] rounded-t-[180px] rounded-b-3xl overflow-hidden shadow-2xl border-4 border-purple-100 bg-purple-50 mb-8 p-1">
+          <div className="w-full h-full rounded-t-[170px] rounded-b-2xl overflow-hidden relative">
             <img
-              src="/assets/story-img.jpg"
-              alt="Hiruna and Thimasha Story"
-              className="story-arch-img w-full h-[120%] object-cover object-center -mt-8 will-change-transform"
+              src="/assets/p5.jpg"
+              alt="Hiruna and Thimasha"
+              className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2e233d]/40 via-transparent to-transparent opacity-40" />
           </div>
         </div>
-      </div>
 
-      {/* BOTTOM COUPLE DETAILS */}
-      <div className="relative z-10 text-center max-w-xl mx-auto">
+        {/* THE COUPLE BADGE */}
         <div className="story-reveal inline-flex items-center gap-2 mb-2">
-          <Heart className="w-4 h-4 text-[#7e22ce] fill-[#7e22ce]/30 animate-pulse" />
-          <span className="story-font-cinzel text-xs text-[#7e22ce] tracking-[0.3em] uppercase font-semibold">
+          <Heart className="w-3.5 h-3.5 text-[#7e22ce] fill-[#7e22ce]/30" />
+          <span className="story-font-lora text-xs text-[#7e22ce] tracking-[0.3em] uppercase font-semibold">
             THE COUPLE
           </span>
-          <Heart className="w-4 h-4 text-[#7e22ce] fill-[#7e22ce]/30 animate-pulse" />
+          <Heart className="w-3.5 h-3.5 text-[#7e22ce] fill-[#7e22ce]/30" />
         </div>
 
-        <h3 className="story-reveal story-font-cinzel text-3xl sm:text-5xl font-bold tracking-widest text-[#1a1820] mb-3">
-          HIRUNA & THIMASHA
-        </h3>
+        {/* NAMES */}
+        <h2 className="story-reveal story-font-cinzel text-3xl sm:text-4xl font-extrabold tracking-wider text-[#1a1820] mb-4 uppercase">
+          Hiruna & Thimasha
+        </h2>
 
-        <p className="story-reveal story-font-lora italic text-sm sm:text-lg text-[#554d63] leading-relaxed max-w-lg mx-auto">
-          "Our journey of love, laughter, and endless memories leads us to this forever moment."
+        {/* QUOTE */}
+        <p className="story-reveal story-font-lora italic text-sm sm:text-base text-[#554d63] leading-relaxed font-light max-w-sm">
+          &ldquo;Our journey of love, laughter, and endless memories leads us to this forever moment.&rdquo;
         </p>
+
       </div>
     </section>
   );

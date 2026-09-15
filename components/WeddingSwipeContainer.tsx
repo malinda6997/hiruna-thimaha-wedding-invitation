@@ -6,12 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import CoupleHero from "@/components/CoupleHero";
 import StorySection from "@/components/StorySection";
-import WeInviteSection from "@/components/WeInviteSection";
 import WeddingTimeline from "@/components/WeddingTimeline";
 import LocationSection from "@/components/LocationSection";
 import CountdownSection from "@/components/CountdownSection";
 import EngagementGallery from "@/components/EngagementGallery";
-import Footer from "@/components/Footer";
+import ContactSection from "@/components/ContactSection";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -46,16 +45,13 @@ export default function WeddingSwipeContainer() {
     <div ref={containerRef} className="overflow-hidden w-full relative bg-[#030206]">
       <div
         ref={sliderRef}
-        className="flex flex-col lg:flex-row lg:w-[800vw] lg:h-screen w-full"
+        className="flex flex-col lg:flex-row lg:w-[700vw] lg:h-screen w-full"
       >
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <CoupleHero />
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <StorySection />
-        </div>
-        <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
-          <WeInviteSection />
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
           <WeddingTimeline />
@@ -70,7 +66,7 @@ export default function WeddingSwipeContainer() {
           <EngagementGallery />
         </div>
         <div className="swipe-panel w-full lg:w-screen lg:h-screen flex-shrink-0">
-          <Footer />
+          <ContactSection />
         </div>
       </div>
     </div>
